@@ -29,7 +29,8 @@ namespace MoreSkills.ModSkills
                         //Stamina Regen Swimming, and still.
                         if (MoreSkills_OverhaulsConfig.EnableSwimStaminaMod.Value)
                         {
-                            if (MoreSkills_Instances._player.IsSwiming() && MoreSkills_Instances._player.GetVelocity().magnitude < 0.6f)
+                            Character _character = MoreSkills_Instances._player;
+                            if (MoreSkills_Instances._player.IsSwimming() && MoreSkills_Instances._player.GetVelocity().magnitude < 0.6f)
                             {
                                 if (count > 200) count++;
                                 MoreSkills_Instances._player.AddStamina(swimstamina_skillinc);

@@ -1,6 +1,7 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
+using System;
 using UnityEngine;
 
 namespace MoreSkills.Config
@@ -11,7 +12,7 @@ namespace MoreSkills.Config
     {
         public void Awake()
         {
-            Debug.Log("Loading All Overhauls...");
+            Debug.Log("[MoreSkills] Loading All Overhauls...");
             //Enablers
             //Sneak.CrouchSpeed
             EnableCrouchMod = base.Config.Bind<bool>("1. Enablers: Sneak", "Enable Crouch Speed Mod", true, "Enables or disables the Crouch Speed Modification");
@@ -46,6 +47,7 @@ namespace MoreSkills.Config
             //WoodCutting
             //Drops
             WoodCuttingMultiplier = base.Config.Bind<float>("2. Multipliers: WoodCutting", "Multiplier based on WoodCutting Skill", 1.5f, "The based on level multipliers, so at level 100 you reach such number. At level 100 you got default x1.5 times the amount of drops than vanilla. This multiplier changes that number.");
+
             //Jumping
             //DamageDecrease
             FallDamageDecrease = base.Config.Bind<float>("2. Multipliers: Jump", "Decrease Multiplier based on Jumping Skill", 2.0f, "Decreases the Damage Recieved by Falling from a High Altitude (4 meters)");
@@ -68,73 +70,93 @@ namespace MoreSkills.Config
             BaseMaxRollAltitude = base.Config.Bind<float>("3. BaseConfigs: Jump", "Base Max Roll Altitude", 8f, "Change the base Max altitude at jump level 100, at which the Character will roll on fall and not recieve any damage.");
             BaseMaxFallAltitude = base.Config.Bind<float>("3. BaseConfigs: Jump", "Base Max Fall Altitude", 30f, "Change the base Max fall altitude which if it's higher than that you will directly die. (Valheim Default is 20)");
 
+            // Added by Machara Stormwing:
+
+            // types of drops recognized when cutting wood using the WoodCutting skill with an axe
+            // BeechSeeds,BirchCone,OakSeeds,Acorn,ElderBark,FineWood,FirCone,PineCone,Resin,RoundLog,Wood
+            WoodCuttingApplyForItems = base.Config.Bind<String>("3. Baseconfigs: Woodcutting", "WoodCuttingApplyForItems",
+                "BeechSeeds,BirchCone,OakSeeds,Acorn,ElderBark,FineWood,FirCone,PineCone,Resin,RoundLog,Wood",
+                "NOT YET USED: List of items that might drop when applying the skill 'WoodCutting' to apply the skill on and increase drop rates to based on skill level. If an item is not in the list the skill will not be applied. 'Enable WoodCutting Drop Mod' must be true for this to be applied.");
+
+            // types of drops recognized when mining ore, stone or other items using the Pickaxes skill with a pickaxe
+            // Chitin,CopperOre,IronScrap,Obsidian,SilverOre,TinOre,Stone
+            PickaxeApplyForItems = base.Config.Bind<String>("3. Baseconfigs: Pickaxe", "PickaxeApplyForItems",
+                "Chitin,CopperOre,IronScrap,Obsidian,SilverOre,TinOre,Stone",
+                "NOT YET USED: List of items that might drop when applying the skill Pickaxe to apply the skill on and increase drop rates to based on skill level. If an item is not in the list the skill will not be applied. 'Enable Pickaxe Drop Mod' must be true for this to be applied.");
+
+            // any other drops possible using the HuntingSkill_Type
+            // Feathers,Guck,LeatherScraps,WitheredBone
+            HuntingApplyForItems = base.Config.Bind<String>("3. Baseconfigs: Hunting", "HuntingApplyForItems",
+                "Feathers,Guck,LeatherScraps,WitheredBone",
+                "NOT YET USED: List of items that might drop when applying the skill 'Hunting' in HuntingConfig to apply the skill on and increase drop rates to based on skill level. If an item is not in the list the skill will not be applied. 'Enable Hunting Skill' in the HuntingConfig must be true for this to be applied.");
+
             //--
-            Debug.Log("Overhauls Patched!");
+            Debug.Log("[MoreSkills] Overhauls Patched!");
             harmonyOverhauls = new Harmony("MoreSkills.OverhaulsConfig.GuiriGuyMods");
 
             //Logs
             if (!EnableCrouchMod.Value)
-                Debug.LogWarning("[MoreSkills]: Crouch Mod Disabled");
+                Debug.LogWarning("[MoreSkills] Crouch Mod Disabled");
             else
-                Debug.Log("[MoreSkills]: Crouch Mod Enabled");
+                Debug.Log("[MoreSkills] Crouch Mod Enabled");
             if (!EnableSwimMod.Value)
-                Debug.LogWarning("[MoreSkills]: Swim Mod Disabled");
+                Debug.LogWarning("[MoreSkills] Swim Mod Disabled");
             else
             {
-                Debug.Log("[MoreSkills]: Swim Mod Enabled");
+                Debug.Log("[MoreSkills] Swim Mod Enabled");
                 if (!EnableSwimSpeedMod.Value)
-                    Debug.LogWarning("[MoreSkills]: Swim/Speed Mod Disabled");
+                    Debug.LogWarning("[MoreSkills] Swim/Speed Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills]: Swim/Speed Mod Enabled");
+                    Debug.Log("[MoreSkills] Swim/Speed Mod Enabled");
                 if (!EnableSwimStaminaMod.Value)
-                    Debug.LogWarning("[MoreSkills]: Swim/Stamina Mod Disabled");
+                    Debug.LogWarning("[MoreSkills] Swim/Stamina Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills]: Swim/Stamina Mod Enabled");
+                    Debug.Log("[MoreSkills] Swim/Stamina Mod Enabled");
             }
             if (!EnablePickaxeDropMod.Value)
-                Debug.LogWarning("[MoreSkills]: Pickaxe Drop Mod Disabled");
+                Debug.LogWarning("[MoreSkills] Pickaxe Drop Mod Disabled");
             else
-                Debug.Log("[MoreSkills]: Pickaxe Drop Mod Enabled");
+                Debug.Log("[MoreSkills] Pickaxe Drop Mod Enabled");
 
             if (!EnableWoodCuttingDropMod.Value)
-                Debug.LogWarning("[MoreSkills]: WoodCutting Drop Mod Disabled");
+                Debug.LogWarning("[MoreSkills] WoodCutting Drop Mod Disabled");
             else
-                Debug.Log("[MoreSkills]: WoodCutting Drop Mod Enabled");
+                Debug.Log("[MoreSkills] WoodCutting Drop Mod Enabled");
 
             if (!EnableJumpMod.Value)
-                Debug.LogWarning("[MoreSkills]: Jump Mod Disabled");
+                Debug.LogWarning("[MoreSkills] Jump Mod Disabled");
             else
             {
-                Debug.Log("[MoreSkills]: Jump Mod Enabled");
+                Debug.Log("[MoreSkills] Jump Mod Enabled");
                 if (!EnableHigherJump.Value)
-                    Debug.LogWarning("[MoreSkills]: Jump/Higher Mod Disabled");
+                    Debug.LogWarning("[MoreSkills] Jump/Higher Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills]: Jump/Higher Mod Enabled");
+                    Debug.Log("[MoreSkills] Jump/Higher Mod Enabled");
                 if (!EnableDecreaseFallDamageMod.Value)
-                    Debug.LogWarning("[MoreSkills]: Jump/Decreased Fall Damage Mod Disabled");
+                    Debug.LogWarning("[MoreSkills] Jump/Decreased Fall Damage Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills]: Jump/Decreased Fall Damage Mod Enabled");
+                    Debug.Log("[MoreSkills] Jump/Decreased Fall Damage Mod Enabled");
                 if (!EnableHaveToShiftToHigherJump.Value)
-                    Debug.LogWarning("[MoreSkills]: Jump/Need to Shift for Higher Jump Mod Disabled");
+                    Debug.LogWarning("[MoreSkills] Jump/Need to Shift for Higher Jump Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills]: Jump/Need to Shift for Higher Jump Mod Enabled");
+                    Debug.Log("[MoreSkills] Jump/Need to Shift for Higher Jump Mod Enabled");
                 if (!EnableRollOnFall.Value)
-                    Debug.LogWarning("[MoreSkills]: Jump/Roll On Fall Mod Disabled");
+                    Debug.LogWarning("[MoreSkills] Jump/Roll On Fall Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills]: Jump/Roll On Fall Mod Enabled");
+                    Debug.Log("[MoreSkills] Jump/Roll On Fall Mod Enabled");
                 if (!EnableMaxFallAltitude.Value)
-                    Debug.LogWarning("[MoreSkills]: Jump/Max Fall Altitude Mod Disabled");
+                    Debug.LogWarning("[MoreSkills] Jump/Max Fall Altitude Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills]: Jump/Max Fall Altitude Mod Enabled");
+                    Debug.Log("[MoreSkills] Jump/Max Fall Altitude Mod Enabled");
 
             }
 
-            Debug.Log("All Overhauls Loaded!");
+            Debug.Log("[MoreSkills] All Overhauls Loaded!");
         }
         private void OnDestroy()
         {
 
-            Debug.Log("Overhauls UnPatched!");
+            Debug.Log("[MoreSkills] Overhauls UnPatched!");
             harmonyOverhauls.UnpatchSelf();
         }
 
@@ -201,6 +223,13 @@ namespace MoreSkills.Config
         public static ConfigEntry<bool> EnableMaxFallAltitude;
 
         public static ConfigEntry<KeyCode> HigherJumpKey;
+
+        // Added by Machara Stormwing
+        public static ConfigEntry<String> WoodCuttingApplyForItems;
+
+        public static ConfigEntry<String> PickaxeApplyForItems;
+
+        public static ConfigEntry<String> HuntingApplyForItems;
 
     }
 }

@@ -38,7 +38,7 @@ namespace MoreSkills.ModSkills.NewSkills
                                     max: drop.m_amountMax,
                                     min: drop.m_amountMin,
                                     chance: drop.m_chance));
-                                Debug.Log("[MoreSkills Hunting]: Added Creature to the Temporal Hunting Database");
+                                Debug.Log("[MoreSkills]: Hunting: Added Creature to the Temporal Hunting Database");
                             }
 
                             //Debug.Log("Updating mob: " + __instance.name.Replace("(Clone)", "") + " Level: " + __instance.m_character.GetLevel() + " Item: " + drop.m_prefab.name.Replace("(UnityEngine.GameObject)", "") + " Min: " + drop.m_amountMin + " Max: " + drop.m_amountMax + " Chance: " + drop.m_chance);
@@ -94,7 +94,7 @@ namespace MoreSkills.ModSkills.NewSkills
                                 //Debug.Log("Updated mob: " + __instance.name.Replace("(Clone)", "") + " Level: " + __instance.m_character.GetLevel() + " Item: " + drop.m_prefab.name.Replace("(UnityEngine.GameObject)", "") + " Min: " + drop.m_amountMin + " Max: " + drop.m_amountMax + " Chance: " + drop.m_chance);
                             } 
                         }
-                        Debug.Log("[MoreSkills Hunting]: Updated mob's loot: " + __instance.name.Replace("(Clone)", "") + " Level: " + __instance.m_character.GetLevel());
+                        Debug.Log("[MoreSkills]: Hunting: Updated mob's loot: " + __instance.name.Replace("(Clone)", "") + " Level: " + __instance.m_character.GetLevel());
                     }
                 }
             }

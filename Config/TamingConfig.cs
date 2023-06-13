@@ -3,6 +3,7 @@ using BepInEx.Configuration;
 using HarmonyLib;
 using MoreSkills.UI;
 using Pipakin.SkillInjectorMod;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace MoreSkills.Config
     {
         public void Awake()
         {
-            Debug.Log("Loading Taming Skill...");
+            Debug.Log("[MoreSkills] Loading Taming Skill...");
 
             //1. Enablers
             //Taming
@@ -205,46 +206,47 @@ namespace MoreSkills.Config
                 {
                     SkillInjector.RegisterNewSkill(705, "Taming", "You're gonna get better at controling and taming these beasts.", 1f, SkillIcons.Load_TamingIcon(), Skills.SkillType.Unarmed);
                 }
-                catch
+                catch (Exception e)
                 {
+                    Debug.LogError("Error Registering new Skill 'Taming'" + e.Message);
                 }
 
             //--
-            Debug.Log("Taming Skill Patched!");
+            Debug.Log("[MoreSkills] Taming Skill Patched!");
             harmonyTaming = new Harmony("MoreSkills.TamingConfig.GuiriGuyMods");
 
             //Logs
             if (!EnableTamingSkill.Value)
-                Debug.LogWarning("[MoreSkills] Skill Mod Disabled");
+                Debug.LogWarning("[MoreSkills] Taming Skill Mod Disabled");
             else
             {
-                Debug.Log("[MoreSkills] Skill Mod Enabled");
+                Debug.Log("[MoreSkills] Taming Skill Mod Enabled");
                 if (!EnableAllTamableCompatibility.Value)
                 {
-                    Debug.LogWarning("[MoreSkills]Taming/AllTamableCompatibility Disabled");
-                    Debug.LogError("[MoreSkills]: IF YOU HAVE ALLTAMABLECOMPATIBILTY (by buzz) INSTALLED, I WOULD RECOMMEND ACTIVATING THIS IN THE CONFIG, OTHERWISE EVERYTHING IS OKAY :D");
+                    Debug.LogWarning("[MoreSkills] Taming/AllTamableCompatibility Disabled");
+                    Debug.LogWarning("[MoreSkills] IF YOU HAVE ALLTAMABLECOMPATIBILTY (by buzz) INSTALLED, I WOULD RECOMMEND ACTIVATING THIS IN THE CONFIG, OTHERWISE EVERYTHING IS OKAY :D");
                 }
                 else
-                    Debug.Log("[MoreSkills]Taming/AllTamableCompatibility Enabled");
+                    Debug.Log("[MoreSkills] Taming/AllTamableCompatibility Enabled");
                 if (!EnableTamingUnlocks.Value)
-                    Debug.LogWarning("[MoreSkills]Taming/Unlocks Mod Disabled");
+                    Debug.LogWarning("[MoreSkills] Taming/Unlocks Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills]Taming/Unlocks Mod Enabled");
+                    Debug.Log("[MoreSkills] Taming/Unlocks Mod Enabled");
                 if (!EnableTamingTimeMod.Value)
-                    Debug.LogWarning("[MoreSkills]Taming/Time Mod Disabled");
+                    Debug.LogWarning("[MoreSkills] Taming/Time Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills]Taming/Time Mod Enabled");
+                    Debug.Log("[MoreSkills] Taming/Time Mod Enabled");
                 if (!EnableTamingEatMod.Value)
-                    Debug.LogWarning("[MoreSkills]Taming/Eat Mod Disabled");
+                    Debug.LogWarning("[MoreSkills] Taming/Eat Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills]Taming/Eat Mod Enabled");
+                    Debug.Log("[MoreSkills] Taming/Eat Mod Enabled");
             }
-            Debug.Log("Taming Skill Loaded!");
+            Debug.Log("[MoreSkills] Taming Skill Loaded!");
         }
         private void OnDestroy()
         {
 
-            Debug.Log("Taming Skill UnPatched!");
+            Debug.Log("[MoreSkills] Taming Skill UnPatched!");
             harmonyTaming.UnpatchSelf();
         }
 

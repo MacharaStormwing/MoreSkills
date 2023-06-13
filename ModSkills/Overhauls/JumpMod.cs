@@ -100,7 +100,7 @@ namespace MoreSkills.ModSkills.Overhauls
                         {
                             if (Altitude > BaseARoll && Altitude < MaxARoll)
                             {
-                                if (hit.m_attacker.m_userID == 0)
+                                if (hit.m_attacker.UserID == 0)
                                 {
                                     hit.m_damage.m_damage = 0;
                                 }
@@ -111,7 +111,7 @@ namespace MoreSkills.ModSkills.Overhauls
                                 {
                                     if (Altitude > MaxARoll && Altitude < MaxAFall)
                                     {
-                                        if (hit.m_attacker.m_userID == 0)
+                                        if (hit.m_attacker.UserID == 0)
                                         {
                                             hit.m_damage.m_damage = ((100 / (MaxAFall - MaxARoll)) * (Altitude - MaxARoll)) / (FDM * Level);
                                         }
@@ -127,14 +127,14 @@ namespace MoreSkills.ModSkills.Overhauls
                                     {
                                         if (Altitude > 20f)
                                         {
-                                            if (hit.m_attacker.m_userID == 0)
+                                            if (hit.m_attacker.UserID == 0)
                                             {
                                                 hit.m_damage.m_damage = 100f / (FDM * Level);
                                             }
                                         }
                                         else if (Altitude > MaxARoll && Altitude < 20f)
                                         {
-                                            if (hit.m_attacker.m_userID == 0)
+                                            if (hit.m_attacker.UserID == 0)
                                             {
                                                 hit.m_damage.m_damage = ((100 / (20 - MaxARoll)) * (Altitude - MaxARoll)) / (FDM * Level);
                                             }
@@ -150,12 +150,12 @@ namespace MoreSkills.ModSkills.Overhauls
                             {
                                 if (Altitude > 4f && Altitude < MaxAFall)
                                 {
-                                    if (hit.m_attacker.userID == 0)
+                                    if (hit.m_attacker.UserID == 0)
                                         hit.m_damage.m_damage = ((100 / (MaxAFall - 4)) * (Altitude - 4)) / (FDM * Level);
                                 }
                                 else if (Altitude > MaxAFall)
                                 {
-                                    if (hit.m_attacker.userID == 0)
+                                    if (hit.m_attacker.UserID == 0)
                                         hit.m_damage.m_damage = (((100 / (MaxAFall - 4)) * (Altitude - 4)) / ((FDM * Level)) + (Altitude - MaxAFall) * MDI);
                                 }
                             }
@@ -163,7 +163,7 @@ namespace MoreSkills.ModSkills.Overhauls
                             {
                                 if (Altitude > 4f)
                                 {
-                                    if (hit.m_attacker.m_userID == 0)
+                                    if (hit.m_attacker.UserID == 0)
                                     {
                                         hit.m_damage.m_damage /= (FDM * Level);
                                     }

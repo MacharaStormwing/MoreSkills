@@ -58,7 +58,7 @@ namespace MoreSkills.ModSkills.NewSkills
             public static float mathAutoHook;
         }
 
-        [HarmonyPatch(typeof(Fish), "FixedUpdate")]
+        [HarmonyPatch(typeof(Fish), "CustomFixedUpdate")]
         public static class Fish_SpeedNHeight_Patch
         {
             public static bool Prefix(ref float ___m_speed, ref float ___m_height, ref Fish __instance)
@@ -87,7 +87,7 @@ namespace MoreSkills.ModSkills.NewSkills
             }
         }
 
-        [HarmonyPatch(typeof(Fish), "FixedUpdate")]
+        [HarmonyPatch(typeof(Fish), "CustomFixedUpdate")]
         public static class Fish_VarietyNMods_Patch
         {
             public static void Postfix(ref Fish __instance, ref float ___m_speed, ref float ___m_height)

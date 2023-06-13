@@ -7,7 +7,8 @@ namespace MoreSkills.ModSkills
 {
     class MoreSkills_Sailing
     {
-        [HarmonyPatch(typeof(Player), "UpdateShipControl")]
+        //[HarmonyPatch(typeof(Player), "UpdateShipControl")]
+        [HarmonyPatch(typeof(Ship), nameof(Ship.GetSailForce))]
         public static class Sailing_Skill
         {
             public static void Postfix()

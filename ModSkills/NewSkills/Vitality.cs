@@ -19,7 +19,6 @@ namespace MoreSkills.ModSkills
                         float health_skill = Mathf.Floor((MoreSkills_Instances._player.GetSkillFactor((Skills.SkillType)MoreSkills_VitalityConfig.VitalitySkill_Type) * 100f) + 0.000001f);
                         float health_skillinc = ((MoreSkills_VitalityConfig.BaseMaxHealth.Value - MoreSkills_VitalityConfig.BaseHealth.Value) / 100) * health_skill;
                         health += (MoreSkills_VitalityConfig.BaseHealth.Value + health_skillinc) - 25f;
-
                     }
                 }
             }

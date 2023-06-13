@@ -3,6 +3,7 @@ using BepInEx.Configuration;
 using HarmonyLib;
 using MoreSkills.UI;
 using Pipakin.SkillInjectorMod;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace MoreSkills.Config
     {
         public void Awake()
         {
-            Debug.Log("Loading Vitality...");
+            Debug.Log("[MoreSkills] Loading Vitality Skill ...");
             //Enablers
             //Vitality.Health
             EnableHealthMod = base.Config.Bind<bool>("Enablers", "Enable Vitality Mod", true, "Enables or disables the Vitality Modification.");
@@ -32,28 +33,29 @@ namespace MoreSkills.Config
                 {
                     SkillInjector.RegisterNewSkill(701, "Vitality", "Endure and gain resistance as you recieve damage", 1f, SkillIcons.Load_VitalityIcon(), Skills.SkillType.Unarmed);
                 }
-                catch
+                catch (Exception e)
                 {
+                    Debug.LogError("Error Registering new Skill 'Vitality'" + e.Message);
                 }
 
             //--
-            Debug.Log("Vitality Skill Patched!");
+            Debug.Log("[MoreSkills] Vitality Skill Patched!");
             harmonyVitality = new Harmony("MoreSkills.VitalityConfig.GuiriGuyMods");
             harmonyVitality.PatchAll();
 
             //Logs            
             if (!EnableHealthMod.Value)
-                Debug.LogWarning("[MoreSkills]: Health Mod Disabled");
+                Debug.LogWarning("[MoreSkills] Health Mod Disabled");
             else
-                Debug.Log("[MoreSkills]: Health Mod Enabled");
+                Debug.Log("[MoreSkills] Health Mod Enabled");
 
-            Debug.Log("Vitality Loaded!");
-            Debug.Log("Everything is Loaded. Hope you love the mod :D");
+            Debug.Log("[MoreSkills] Vitality Skill Loaded!");
+            Debug.Log("[MoreSkills] Everything is Loaded. Hope you love the mod :D");
         }
         private void OnDestroy()
         {
 
-            Debug.Log("Vitality Skill UnPatched!");
+            Debug.Log("[MoreSkills] Vitality Skill UnPatched!");
             harmonyVitality.UnpatchSelf();
         }
 

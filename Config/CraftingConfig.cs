@@ -3,22 +3,25 @@ using BepInEx.Configuration;
 using HarmonyLib;
 using MoreSkills.UI;
 using Pipakin.SkillInjectorMod;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MoreSkills.Config
 {
-    [BepInPlugin("MoreSkills.CraftingConfig", "MoreSkills: Crafting", "0.0.3")]
+    [BepInPlugin("MoreSkills.CraftingConfig", "MoreSkills: Crafting", "0.0.4")]
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class MoreSkills_CraftingConfig : BaseUnityPlugin
     {
         public void Awake()
         {
-            Debug.Log("Loading All MoreSkills Configs. Please, wait a moment...");
-            Debug.Log("Loading CraftingSkill");
+            Debug.Log("[MoreSkills] Loading All MoreSkills Configs. Please, wait a moment...");
+            Debug.Log("[MoreSkills] Loading CraftingSkill");
             //1. Enablers
             //Crafting
             EnableCraftingSkill = base.Config.Bind<bool>("1. Enablers", "Enable Crafting Mod", true, "Enables or disables the Crafting Resources Modification");
+
+            EnableDetailedLogging = base.Config.Bind<bool>("1. Enablers", "Enable Detailed Crafting Logging", false, "Enables or disables additional logging (such as calculating required item numbers based on crafting skill)");            
             //2. Multipliers
             //Crafting
             //Skill
@@ -34,28 +37,29 @@ namespace MoreSkills.Config
                 {
                     SkillInjector.RegisterNewSkill(703, "Crafting", "You get better at this thing of crafting. You can probably even become more efficient...", 1f, SkillIcons.Load_CraftingIcon(), Skills.SkillType.Unarmed);
                 }
-                catch
+                catch (Exception e)
                 {
+                    Debug.LogError("Error Registering new Skill 'Crafting'" + e.Message);
                 }
 
             //--
-            Debug.Log("Crafting Skill Patched!");
+            Debug.Log("[MoreSkills] Crafting Skill Patched!");
             harmonyCraft = new Harmony("MoreSkills.CraftingConfig.GuiriGuyMods");
 
             //Logs
 
             if (!EnableCraftingSkill.Value)
-                Debug.LogWarning("[MoreSkills]: Crafting Mod Disabled");
+                Debug.LogWarning("[MoreSkills] Crafting Mod Disabled");
             else
-                Debug.Log("[MoreSkills]: Crafting Mod Enabled");
+                Debug.Log("[MoreSkills] Crafting Mod Enabled");
 
-            Debug.Log("Crafting Skill Loaded!");
+            Debug.Log("[MoreSkills] Crafting Skill Loaded!");
         }
 
         private void OnDestroy()
         {
 
-            Debug.Log("Crafting Skill UnPatched!");
+            Debug.Log("[MoreSkills] Crafting Skill UnPatched!");
             harmonyCraft.UnpatchSelf();
         }
 
@@ -78,6 +82,8 @@ namespace MoreSkills.Config
         //Enables
 
         public static ConfigEntry<bool> EnableCraftingSkill;
+
+        public static ConfigEntry<bool> EnableDetailedLogging;
 
         //Skills Types
 

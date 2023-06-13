@@ -1,0 +1,10 @@
+{
+    "name": "MoreSkills",
+    "version_number": "1.10.5",
+    "website_url": "https://github.com/guiriguy",
+    "description": "Adds new skills to the game and Overhauls others. All Configurable and can Disable one by one if wanted. 1.10.5 by MacharaStormwing",
+    "dependencies": [
+       "denikson-BepInExPack_Valheim-5.4.901",
+	"pipakin-SkillInjector-1.1.1"
+    ]
+}

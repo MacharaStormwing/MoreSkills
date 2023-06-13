@@ -19,13 +19,11 @@ namespace MoreSkills.ModSkills.NewSkills
                 {
                     if (MoreSkills_TamingConfig.EnableTamingSkill.Value)
                     {
-                        //Debug.LogWarning("Here 1");
                         //Debug.LogWarning("ZDOID ANTES: " + Creature1);
                         if (__instance.GetTameness() < 100 && !__instance.m_character.IsTamed() && !__instance.m_character.IsPlayer())
                         {
                             Player closestPlayer = null;
                             ZDOID cPlayer = ZDOID.None;
-                            //Debug.LogWarning("Here 2");
                             //Debug.LogWarning("ZDO" + __instance.m_nview.GetZDO().GetString("TamerID"));
 
                             if (__instance.m_nview.GetZDO().GetString("TamerID") == "")
@@ -42,10 +40,8 @@ namespace MoreSkills.ModSkills.NewSkills
                                 }
                                 if (cPlayer == MoreSkills_Instances._player.GetZDOID())
                                 {
-                                    //Debug.LogWarning("Here 3");
                                     if (MoreSkills_TamingConfig.EnableAllTamableCompatibility.Value)
                                     {
-                                        //Debug.LogWarning("Here 4");
                                         string sCreature = __instance.name.Replace("(Clone)", "");
                                         switch (__instance.name.Replace("(Clone)", ""))
                                         {
@@ -230,9 +226,9 @@ namespace MoreSkills.ModSkills.NewSkills
                                                 Unlocklvl1 = 90f;
                                                 if (tLevels.Find(tLevel => tLevel.Creature == sCreature).Creature != sCreature)
                                                 {
-                                                    Debug.LogWarning("[MoreSkills]: Creature Tame Levels Missing: " + __instance.name.Replace("(Clone)", ""));
-                                                    Debug.LogWarning("[MoreSkills]: Adding Creature to Temp with Default Needed Levels. Unlock 30. Tamer 60. Master 90.");
-                                                    Debug.LogWarning("[MoreSkills]: Report it if you want custom numbers to the creature, and the levels. Thanks!");
+                                                    Debug.LogWarning("[MoreSkills] Creature Tame Levels Missing: " + __instance.name.Replace("(Clone)", ""));
+                                                    Debug.LogWarning("[MoreSkills] Adding Creature to Temp with Default Needed Levels. Unlock 30. Tamer 60. Master 90.");
+                                                    Debug.LogWarning("[MoreSkills] Report it if you want custom numbers to the creature, and the levels. Thanks!");
                                                     tLevels.Add(new Helper.TamingLevels(
                                                         creature: sCreature,
                                                         master: Masterlvl1,
@@ -244,7 +240,7 @@ namespace MoreSkills.ModSkills.NewSkills
                                         }
                                         if (tLevels.Find(tLevel => tLevel.Creature == sCreature).Creature != sCreature)
                                         {
-                                            Debug.Log("[MoreSkills]: Saved Taming Levels from : " + __instance.name.Replace("(Clone)", "") + " to the Temporal Database");
+                                            Debug.Log("[MoreSkills] Saved Taming Levels from : " + __instance.name.Replace("(Clone)", "") + " to the Temporal Database");
                                             tLevels.Add(new Helper.TamingLevels(
                                                 creature: sCreature,
                                                 master: Masterlvl1,
@@ -255,7 +251,6 @@ namespace MoreSkills.ModSkills.NewSkills
                                     }
                                     else
                                     {
-                                        //Debug.LogWarning("Here 5");
                                         string sCreature = __instance.name.Replace("(Clone)", "");
                                         switch (__instance.name.Replace("(Clone)", ""))
                                         {
@@ -277,8 +272,7 @@ namespace MoreSkills.ModSkills.NewSkills
                                         }
                                         if (tLevels.Find(tLevel => tLevel.Creature == sCreature).Creature != sCreature)
                                         {
-                                            //Debug.LogWarning("Here 6");
-                                            Debug.Log("[MoreSkills]: Saved Taming Levels from : " + __instance.name.Replace("(Clone)", "") + " to the Temporal Database");
+                                            Debug.Log("[MoreSkills] Saved Taming Levels from : " + __instance.name.Replace("(Clone)", "") + " to the Temporal Database");
                                             tLevels.Add(new Helper.TamingLevels(
                                                 creature: sCreature,
                                                 master: Masterlvl1,
@@ -287,7 +281,6 @@ namespace MoreSkills.ModSkills.NewSkills
                                                 tametime: __instance.m_tamingTime));
                                         }
                                     }
-                                    //Debug.LogWarning("Here 7");
                                     //Debug.LogWarning("Nivel Master: " + Masterlvl1);
                                     //Debug.LogWarning("Nivel Tamer: " + Tamerlvl1);
                                     //Debug.LogWarning("Nivel Unlock: " + Unlocklvl1);
@@ -306,14 +299,13 @@ namespace MoreSkills.ModSkills.NewSkills
                                         master: Master,
                                         tamer: Tamer,
                                         unlock: Unlock));
-                                    //Debug.Log("[MoreSkills]: You are now taming a " + (__instance.name.Replace("(Clone)", "")));
-                                    //Debug.LogWarning("Here 8");
+                                    //Debug.Log("[MoreSkills] You are now taming a " + (__instance.name.Replace("(Clone)", "")));
                                     MoreSkills_Instances._player.Message(MessageHud.MessageType.Center, "You are now taming a " + (__instance.name.Replace("(Clone)", "")), 0, null);
                                     __instance.m_nview.GetZDO().Set("TamerID", MoreSkills_Instances._player.GetZDOID().ToString());
                                 }
                                 else
                                 {
-                                    Debug.LogError("You are not the tamer, or was the closest one when he first ate or close enough");
+                                    Debug.LogWarning("[MoreSkills] You are not the tamer, or was the closest one when he first ate or close enough");
                                     MoreSkills_Instances._player.Message(MessageHud.MessageType.TopLeft, "<color=red>You are not the tamer, either you weren't the closest one when he first ate or close enough " + (__instance.name.Replace("(Clone)", "")) + "</color>", 0, null);
                                 }
                                 /*string Test = __instance.m_nview.GetZDO().GetString("TamerID");
@@ -736,7 +728,7 @@ namespace MoreSkills.ModSkills.NewSkills
                             else if (__instance.m_character.IsTamed())
                             {
                                 TamingSkillIncrease += ((__instance.m_tamingTime / 200) * __instance.m_character.GetLevel()) * MoreSkills_TamingConfig.TamingSkillIncreaseMultiplier.Value;
-                                Debug.Log("[MoreSkills]: Gained " + TamingSkillIncrease + " EXP at Taming");
+                                Debug.Log("[MoreSkills] Gained " + TamingSkillIncrease + " EXP at Taming");
                                 var tsave = tSaves.Find(x => x.CreatureZDOID == CreatureZDOID);
                                 tSaves.Remove(tsave);
                                 var tfix = tFixed.Find(x => x.CreatureZDOID == CreatureZDOID);
@@ -811,7 +803,6 @@ namespace MoreSkills.ModSkills.NewSkills
                                 string sCreature = __instance.name.Replace("(Clone)", "");
                                 if (MoreSkills_TamingConfig.EnableAllTamableCompatibility.Value)
                                 {
-                                    //Debug.LogWarning("Here 4");
                                     switch (__instance.name.Replace("(Clone)", ""))
                                     {
                                         case "Blob":
@@ -995,9 +986,9 @@ namespace MoreSkills.ModSkills.NewSkills
                                             Unlocklvl1 = 90f;
                                             if (tLevels.Find(tLevel => tLevel.Creature == sCreature).Creature != sCreature)
                                             {
-                                                Debug.LogWarning("[MoreSkills]: Creature Tame Levels Missing: " + __instance.name.Replace("(Clone)", ""));
-                                                Debug.LogWarning("[MoreSkills]: Adding Creature to Temp with Default Needed Levels. Unlock 30. Tamer 60. Master 90.");
-                                                Debug.LogWarning("[MoreSkills]: Report it if you want custom numbers to the creature, and the levels. Thanks!");
+                                                Debug.LogWarning("[MoreSkills] Creature Tame Levels Missing: " + __instance.name.Replace("(Clone)", ""));
+                                                Debug.LogWarning("[MoreSkills] Adding Creature to Temp with Default Needed Levels. Unlock 30. Tamer 60. Master 90.");
+                                                Debug.LogWarning("[MoreSkills] Report it if you want custom numbers to the creature, and the levels. Thanks!");
                                                 tLevels.Add(new Helper.TamingLevels(
                                                     creature: sCreature,
                                                     master: Masterlvl1,
@@ -1009,7 +1000,7 @@ namespace MoreSkills.ModSkills.NewSkills
                                     }
                                     if (tLevels.Find(tLevel => tLevel.Creature == sCreature).Creature != sCreature)
                                     {
-                                        Debug.Log("[MoreSkills]: Saved Taming Levels from : " + __instance.name.Replace("(Clone)", "") + " to the Temporal Database");
+                                        Debug.Log("[MoreSkills] Saved Taming Levels from : " + __instance.name.Replace("(Clone)", "") + " to the Temporal Database");
                                         tLevels.Add(new Helper.TamingLevels(
                                             creature: sCreature,
                                             master: Masterlvl1,
@@ -1020,7 +1011,6 @@ namespace MoreSkills.ModSkills.NewSkills
                                 }
                                 else
                                 {
-                                    //Debug.LogWarning("Here 5");
                                     switch (__instance.name.Replace("(Clone)", ""))
                                     {
                                         case "Boar":
@@ -1041,8 +1031,7 @@ namespace MoreSkills.ModSkills.NewSkills
                                     }
                                     if (tLevels.Find(tLevel => tLevel.Creature == sCreature).Creature != sCreature)
                                     {
-                                        //Debug.LogWarning("Here 6");
-                                        Debug.Log("[MoreSkills]: Saved Taming Levels from : " + __instance.name.Replace("(Clone)", "") + " to the Temporal Database");
+                                        Debug.Log("[MoreSkills] Saved Taming Levels from : " + __instance.name.Replace("(Clone)", "") + " to the Temporal Database");
                                         tLevels.Add(new Helper.TamingLevels(
                                             creature: sCreature,
                                             master: Masterlvl1,
