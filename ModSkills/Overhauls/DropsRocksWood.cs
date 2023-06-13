@@ -9,6 +9,10 @@ namespace MoreSkills.ModSkills
 {
     class MoreSkills_DropsRocksWood
     {
+        private static bool useNewDropMethod = false;
+        private static char[] commaSeparator = new[] { ',' };
+
+
         [HarmonyPatch(typeof(DropTable), "GetDropList", new Type[] { typeof(int) })]
         public static class DropTable_DropsRocksWood
         {
