@@ -366,3 +366,6 @@ nexusFiles/
 
 # Solution file
 *.sln
+/obj/Debug/MoreSkills.csproj.FileListAbsolute.txt
+/obj/Debug/MoreSkills.csproj.AssemblyReference.cache
+/.vs/MoreSkills/v17/.suo
