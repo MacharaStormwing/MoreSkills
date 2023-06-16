@@ -2,6 +2,7 @@
 using BepInEx.Configuration;
 using HarmonyLib;
 using MoreSkills.UI;
+using MoreSkills.Utility;
 using Pipakin.SkillInjectorMod;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace MoreSkills.Config
     {
         public void Awake()
         {            
-            Debug.Log("[MoreSkills] Loading Strength Skill...");
+            Utilities.Log("Loading Strength Skill...");
             //Enablers
             //Strength
             EnableStrengthMod = base.Config.Bind<bool>("Enablers", "Enable Strength Mod", true, "Enables or disables the Strength Modification.");
@@ -42,36 +43,36 @@ namespace MoreSkills.Config
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("Error Registering new Skill 'Strength'" + e.Message);
+                    Utilities.LogError("Error Registering new Skill 'Strength'" + e.Message);
                 }
 
             //--
-            Debug.Log("[MoreSkills] Strength Skill Patched!");
+            Utilities.Log("Strength Skill Patched!");
             harmonyStrength = new Harmony("MoreSkills.StrengthConfig.GuiriGuyMods");
 
             //Logs
             if (!EnableStrengthMod.Value)
-                Debug.LogWarning("[MoreSkills] Strength Skill Disabled");
+                Utilities.LogWarning("Strength Skill Disabled");
             else
             {
-                Debug.Log("[MoreSkills] Strength Skill Enabled");
+                Utilities.Log("Strength Skill Enabled");
                 if (!EnableWeightMod.Value)
-                    Debug.LogWarning("[MoreSkills] Strength/Weight Mod Disabled");
+                    Utilities.LogWarning("Strength/Weight Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Strength/Weight Mod Enabled");
+                    Utilities.Log("Strength/Weight Mod Enabled");
                 if (!EnableStrengthStaminaMod.Value)
-                    Debug.LogWarning("[MoreSkills] Strength/Stamina Mod Disabled");
+                    Utilities.LogWarning("Strength/Stamina Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Strength/Stamina Mod Enabled");
+                    Utilities.Log("Strength/Stamina Mod Enabled");
             }
 
 
-            Debug.Log("[MoreSkills] Strength Skill Loaded!");
+            Utilities.Log("Strength Skill Loaded!");
         }
         private void OnDestroy()
         {
 
-            Debug.Log("[MoreSkills] Strength Skill UnPatched!");
+            Utilities.Log("Strength Skill UnPatched!");
             harmonyStrength.UnpatchSelf();
         }
 

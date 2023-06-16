@@ -6,6 +6,6 @@
 
         public const string Guid = "com.guiriguy.moreskills";
 
-        public const string Version = "0.1.8";
+        public const string Version = "0.20.1";
     }
 }

@@ -1,8 +1,20 @@
-Update 0.2 maintained and updated by Machara Stormwing:
-- Updated for new Valheim version 0.214.3
+New Changes by MacharaStormwing:
+--------------------------------
+
+Update 0.2.1:
+- update to support Valheim 0.216.9
+- various cleanups (logging more unified, refactoring)
+
+Update 0.2.0:
+- Updated for new Valheim version 0.215.2
 - added handling of Woodcutting drop types: "BirchCone", "OakSeeds" and "Acorn"
+- various build system updates
 - made list of drop types configurable per skill so it's easier to update and more configurable
   (see WoodCuttingApplyForItems, PickaxeApplyForItems and HuntingApplyForItems in Moreskills.OverhaulsConfig.cfg)
+  Those are not yet usable though (future update will use them)
+
+Old changes by guiriguy:
+------------------------
 
 Update 0.1.10 NEW Fishing Skill:
 - Added New Fishing Skill.

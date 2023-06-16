@@ -1,6 +1,7 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
+using MoreSkills.Utility;
 using System;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace MoreSkills.Config
     {
         public void Awake()
         {
-            Debug.Log("[MoreSkills] Loading All Overhauls...");
+            Utilities.Log("Loading All Overhauls...");
             //Enablers
             //Sneak.CrouchSpeed
             EnableCrouchMod = base.Config.Bind<bool>("1. Enablers: Sneak", "Enable Crouch Speed Mod", true, "Enables or disables the Crouch Speed Modification");
@@ -91,72 +92,72 @@ namespace MoreSkills.Config
                 "NOT YET USED: List of items that might drop when applying the skill 'Hunting' in HuntingConfig to apply the skill on and increase drop rates to based on skill level. If an item is not in the list the skill will not be applied. 'Enable Hunting Skill' in the HuntingConfig must be true for this to be applied.");
 
             //--
-            Debug.Log("[MoreSkills] Overhauls Patched!");
+            Utilities.Log("Overhauls Patched!");
             harmonyOverhauls = new Harmony("MoreSkills.OverhaulsConfig.GuiriGuyMods");
 
             //Logs
             if (!EnableCrouchMod.Value)
-                Debug.LogWarning("[MoreSkills] Crouch Mod Disabled");
+                Utilities.LogWarning("Crouch Mod Disabled");
             else
-                Debug.Log("[MoreSkills] Crouch Mod Enabled");
+                Utilities.Log("Crouch Mod Enabled");
             if (!EnableSwimMod.Value)
-                Debug.LogWarning("[MoreSkills] Swim Mod Disabled");
+                Utilities.LogWarning("Swim Mod Disabled");
             else
             {
-                Debug.Log("[MoreSkills] Swim Mod Enabled");
+                Utilities.Log("Swim Mod Enabled");
                 if (!EnableSwimSpeedMod.Value)
-                    Debug.LogWarning("[MoreSkills] Swim/Speed Mod Disabled");
+                    Utilities.LogWarning("Swim/Speed Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Swim/Speed Mod Enabled");
+                    Utilities.Log("Swim/Speed Mod Enabled");
                 if (!EnableSwimStaminaMod.Value)
-                    Debug.LogWarning("[MoreSkills] Swim/Stamina Mod Disabled");
+                    Utilities.LogWarning("Swim/Stamina Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Swim/Stamina Mod Enabled");
+                    Utilities.Log("Swim/Stamina Mod Enabled");
             }
             if (!EnablePickaxeDropMod.Value)
-                Debug.LogWarning("[MoreSkills] Pickaxe Drop Mod Disabled");
+                Utilities.LogWarning("Pickaxe Drop Mod Disabled");
             else
-                Debug.Log("[MoreSkills] Pickaxe Drop Mod Enabled");
+                Utilities.Log("Pickaxe Drop Mod Enabled");
 
             if (!EnableWoodCuttingDropMod.Value)
-                Debug.LogWarning("[MoreSkills] WoodCutting Drop Mod Disabled");
+                Utilities.LogWarning("WoodCutting Drop Mod Disabled");
             else
-                Debug.Log("[MoreSkills] WoodCutting Drop Mod Enabled");
+                Utilities.Log("WoodCutting Drop Mod Enabled");
 
             if (!EnableJumpMod.Value)
-                Debug.LogWarning("[MoreSkills] Jump Mod Disabled");
+                Utilities.LogWarning("Jump Mod Disabled");
             else
             {
-                Debug.Log("[MoreSkills] Jump Mod Enabled");
+                Utilities.Log("Jump Mod Enabled");
                 if (!EnableHigherJump.Value)
-                    Debug.LogWarning("[MoreSkills] Jump/Higher Mod Disabled");
+                    Utilities.LogWarning("Jump/Higher Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Jump/Higher Mod Enabled");
+                    Utilities.Log("Jump/Higher Mod Enabled");
                 if (!EnableDecreaseFallDamageMod.Value)
-                    Debug.LogWarning("[MoreSkills] Jump/Decreased Fall Damage Mod Disabled");
+                    Utilities.LogWarning("Jump/Decreased Fall Damage Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Jump/Decreased Fall Damage Mod Enabled");
+                    Utilities.Log("Jump/Decreased Fall Damage Mod Enabled");
                 if (!EnableHaveToShiftToHigherJump.Value)
-                    Debug.LogWarning("[MoreSkills] Jump/Need to Shift for Higher Jump Mod Disabled");
+                    Utilities.LogWarning("Jump/Need to Shift for Higher Jump Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Jump/Need to Shift for Higher Jump Mod Enabled");
+                    Utilities.Log("Jump/Need to Shift for Higher Jump Mod Enabled");
                 if (!EnableRollOnFall.Value)
-                    Debug.LogWarning("[MoreSkills] Jump/Roll On Fall Mod Disabled");
+                    Utilities.LogWarning("Jump/Roll On Fall Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Jump/Roll On Fall Mod Enabled");
+                    Utilities.Log("Jump/Roll On Fall Mod Enabled");
                 if (!EnableMaxFallAltitude.Value)
-                    Debug.LogWarning("[MoreSkills] Jump/Max Fall Altitude Mod Disabled");
+                    Utilities.LogWarning("Jump/Max Fall Altitude Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Jump/Max Fall Altitude Mod Enabled");
+                    Utilities.Log("Jump/Max Fall Altitude Mod Enabled");
 
             }
 
-            Debug.Log("[MoreSkills] All Overhauls Loaded!");
+            Utilities.Log("All Overhauls Loaded!");
         }
         private void OnDestroy()
         {
 
-            Debug.Log("[MoreSkills] Overhauls UnPatched!");
+            Utilities.Log("Overhauls UnPatched!");
             harmonyOverhauls.UnpatchSelf();
         }
 

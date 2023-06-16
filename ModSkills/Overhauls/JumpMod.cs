@@ -67,7 +67,7 @@ namespace MoreSkills.ModSkills.Overhauls
                                 }
                             }
 
-                            //Debug.LogWarning("Altitud: " + Altitude);
+                            //Utilities.LogWarning("Altitud: " + Altitude);
                         }
                     }
                 }

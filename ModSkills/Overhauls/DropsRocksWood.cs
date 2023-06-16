@@ -70,7 +70,7 @@ namespace MoreSkills.ModSkills
                                         matchingDropContainer.NumItems++;
                                     } else
                                     {
-                                        Debug.LogWarning("[MoreSkills] Report Missing/Unknown Drop: '" + droppedObject.name + "'");
+                                        Utilities.LogWarning("Report Missing/Unknown Drop: '" + droppedObject.name + "'");
                                         Drops.Add(droppedObject);
                                     }
                                 }
@@ -158,9 +158,9 @@ namespace MoreSkills.ModSkills
                                 float cWitheredBone = 0;
                                 GameObject objectWitheredBone = null;
 
-                                //Debug.LogWarning("Chance: " + __instance.m_dropChance);
-                                //Debug.LogWarning("Min: " + __instance.m_dropMin);
-                                //Debug.LogWarning("Max: " + __instance.m_dropMax);
+                                //Utilities.LogWarning("Chance: " + __instance.m_dropChance);
+                                //Utilities.LogWarning("Min: " + __instance.m_dropMin);
+                                //Utilities.LogWarning("Max: " + __instance.m_dropMax);
 
                                 foreach (GameObject objectDrops in __result)
                                 {
@@ -169,8 +169,8 @@ namespace MoreSkills.ModSkills
                                         continue;
                                     }
 
-                                    //Debug.LogWarning("Drop Item Name: " + objectDrops.name);
-                                    
+                                    //Utilities.LogWarning("Drop Item Name: " + objectDrops.name);
+
 
                                     //Woods
                                     if (objectDrops.name == "BeechSeeds")
@@ -287,7 +287,7 @@ namespace MoreSkills.ModSkills
                                     }
                                     else
                                     {
-                                        Debug.LogWarning("[MoreSkills] Report Missing/Unknown Drop: '" + objectDrops.name + "'");
+                                        Utilities.LogWarning("Report Missing/Unknown Drop: '" + objectDrops.name + "'");
                                         Drops.Add(objectDrops);
                                     }
                                 }
@@ -654,11 +654,11 @@ namespace MoreSkills.ModSkills
                             }
                         }
 
-                        /*Debug.LogWarning("Nombre: " + __instance.m_name);
-                        Debug.LogWarning("Cantidad de rocas: " + __instance.m_hitAreas.Count);
-                        Debug.LogWarning("Chance: " + __instance.m_dropItems.m_dropChance);
-                        Debug.LogWarning("Min: " + __instance.m_dropItems.m_dropMin);
-                        Debug.LogWarning("Max: " + __instance.m_dropItems.m_dropMax);
+                        /*Utilities.LogWarning("Nombre: " + __instance.m_name);
+                        Utilities.LogWarning("Cantidad de rocas: " + __instance.m_hitAreas.Count);
+                        Utilities.LogWarning("Chance: " + __instance.m_dropItems.m_dropChance);
+                        Utilities.LogWarning("Min: " + __instance.m_dropItems.m_dropMin);
+                        Utilities.LogWarning("Max: " + __instance.m_dropItems.m_dropMax);
                     }
                 }
 

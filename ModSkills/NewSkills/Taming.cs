@@ -19,12 +19,12 @@ namespace MoreSkills.ModSkills.NewSkills
                 {
                     if (MoreSkills_TamingConfig.EnableTamingSkill.Value)
                     {
-                        //Debug.LogWarning("ZDOID ANTES: " + Creature1);
+                        //Utilities.LogWarning("ZDOID ANTES: " + Creature1);
                         if (__instance.GetTameness() < 100 && !__instance.m_character.IsTamed() && !__instance.m_character.IsPlayer())
                         {
                             Player closestPlayer = null;
                             ZDOID cPlayer = ZDOID.None;
-                            //Debug.LogWarning("ZDO" + __instance.m_nview.GetZDO().GetString("TamerID"));
+                            //Utilities.LogWarning("ZDO" + __instance.m_nview.GetZDO().GetString("TamerID"));
 
                             if (__instance.m_nview.GetZDO().GetString("TamerID") == "")
                             {
@@ -226,9 +226,9 @@ namespace MoreSkills.ModSkills.NewSkills
                                                 Unlocklvl1 = 90f;
                                                 if (tLevels.Find(tLevel => tLevel.Creature == sCreature).Creature != sCreature)
                                                 {
-                                                    Debug.LogWarning("[MoreSkills] Creature Tame Levels Missing: " + __instance.name.Replace("(Clone)", ""));
-                                                    Debug.LogWarning("[MoreSkills] Adding Creature to Temp with Default Needed Levels. Unlock 30. Tamer 60. Master 90.");
-                                                    Debug.LogWarning("[MoreSkills] Report it if you want custom numbers to the creature, and the levels. Thanks!");
+                                                    Utilities.LogWarning("Creature Tame Levels Missing: " + __instance.name.Replace("(Clone)", ""));
+                                                    Utilities.LogWarning("Adding Creature to Temp with Default Needed Levels. Unlock 30. Tamer 60. Master 90.");
+                                                    Utilities.LogWarning("Report it if you want custom numbers to the creature, and the levels. Thanks!");
                                                     tLevels.Add(new Helper.TamingLevels(
                                                         creature: sCreature,
                                                         master: Masterlvl1,
@@ -240,7 +240,7 @@ namespace MoreSkills.ModSkills.NewSkills
                                         }
                                         if (tLevels.Find(tLevel => tLevel.Creature == sCreature).Creature != sCreature)
                                         {
-                                            Debug.Log("[MoreSkills] Saved Taming Levels from : " + __instance.name.Replace("(Clone)", "") + " to the Temporal Database");
+                                            Utilities.Log("Saved Taming Levels from : " + __instance.name.Replace("(Clone)", "") + " to the Temporal Database");
                                             tLevels.Add(new Helper.TamingLevels(
                                                 creature: sCreature,
                                                 master: Masterlvl1,
@@ -272,7 +272,7 @@ namespace MoreSkills.ModSkills.NewSkills
                                         }
                                         if (tLevels.Find(tLevel => tLevel.Creature == sCreature).Creature != sCreature)
                                         {
-                                            Debug.Log("[MoreSkills] Saved Taming Levels from : " + __instance.name.Replace("(Clone)", "") + " to the Temporal Database");
+                                            Utilities.Log("Saved Taming Levels from : " + __instance.name.Replace("(Clone)", "") + " to the Temporal Database");
                                             tLevels.Add(new Helper.TamingLevels(
                                                 creature: sCreature,
                                                 master: Masterlvl1,
@@ -281,9 +281,9 @@ namespace MoreSkills.ModSkills.NewSkills
                                                 tametime: __instance.m_tamingTime));
                                         }
                                     }
-                                    //Debug.LogWarning("Nivel Master: " + Masterlvl1);
-                                    //Debug.LogWarning("Nivel Tamer: " + Tamerlvl1);
-                                    //Debug.LogWarning("Nivel Unlock: " + Unlocklvl1);
+                                    //Utilities.LogWarning("Nivel Master: " + Masterlvl1);
+                                    //Utilities.LogWarning("Nivel Tamer: " + Tamerlvl1);
+                                    //Utilities.LogWarning("Nivel Unlock: " + Unlocklvl1);
                                     string CreatureZDOID = string.Concat(__instance.name + ":" + __instance.m_character.GetZDOID());
                                     ZDOID TamerID = closestPlayer.GetZDOID();
                                     float tameTime = __instance.m_tamingTime;
@@ -299,17 +299,17 @@ namespace MoreSkills.ModSkills.NewSkills
                                         master: Master,
                                         tamer: Tamer,
                                         unlock: Unlock));
-                                    //Debug.Log("[MoreSkills] You are now taming a " + (__instance.name.Replace("(Clone)", "")));
+                                    //Utilities.Log("You are now taming a " + (__instance.name.Replace("(Clone)", "")));
                                     MoreSkills_Instances._player.Message(MessageHud.MessageType.Center, "You are now taming a " + (__instance.name.Replace("(Clone)", "")), 0, null);
                                     __instance.m_nview.GetZDO().Set("TamerID", MoreSkills_Instances._player.GetZDOID().ToString());
                                 }
                                 else
                                 {
-                                    Debug.LogWarning("[MoreSkills] You are not the tamer, or was the closest one when he first ate or close enough");
+                                    Utilities.LogWarning("You are not the tamer, or was the closest one when he first ate or close enough");
                                     MoreSkills_Instances._player.Message(MessageHud.MessageType.TopLeft, "<color=red>You are not the tamer, either you weren't the closest one when he first ate or close enough " + (__instance.name.Replace("(Clone)", "")) + "</color>", 0, null);
                                 }
                                 /*string Test = __instance.m_nview.GetZDO().GetString("TamerID");
-                                Debug.LogWarning("ZDOs" + Test);*/
+                                Utilities.LogWarning("ZDOs" + Test);*/
                             }
                         }
                     }
@@ -341,16 +341,16 @@ namespace MoreSkills.ModSkills.NewSkills
                             var Fixed = tFixed.Find(tfixed => tfixed.CreatureZDOID == CreatureZDOID);
                             var GotFar = tGotFar.Find(tgotfar => tgotfar.CreatureZDOID == CreatureZDOID);
                             var DoubleCheck = tDoubleCheck.Find(tdoublecheck => tdoublecheck.CreatureZDOID == CreatureZDOID);
-                            //Debug.LogWarning("CreatureZDOID: " + CreatureZDOID);
-                            //Debug.LogWarning("Creature: " + getSave.CreatureZDOID);
-                            //Debug.LogWarning("Master: " + Master);
-                            //Debug.LogWarning("Tamer: " + Tamer);
-                            //Debug.LogWarning("Unlock: " + Unlock);
-                            //Debug.LogWarning("Oldtime: " + oldTime);
-                            //Debug.LogWarning("OldEat: " + oldEat);
-                            //Debug.LogWarning("Fixed: " + Fixed.Fixed);
-                            //Debug.LogWarning("GotFar: " + GotFar.GotFar);
-                            //Debug.LogWarning("DoubleCheck: " + DoubleCheck.DoubleCheck);
+                            //Utilities.LogWarning("CreatureZDOID: " + CreatureZDOID);
+                            //Utilities.LogWarning("Creature: " + getSave.CreatureZDOID);
+                            //Utilities.LogWarning("Master: " + Master);
+                            //Utilities.LogWarning("Tamer: " + Tamer);
+                            //Utilities.LogWarning("Unlock: " + Unlock);
+                            //Utilities.LogWarning("Oldtime: " + oldTime);
+                            //Utilities.LogWarning("OldEat: " + oldEat);
+                            //Utilities.LogWarning("Fixed: " + Fixed.Fixed);
+                            //Utilities.LogWarning("GotFar: " + GotFar.GotFar);
+                            //Utilities.LogWarning("DoubleCheck: " + DoubleCheck.DoubleCheck);
                             if (__instance.GetTameness() < 100)
                             {
                                 if (MoreSkills_TamingConfig.EnableTamingUnlocks.Value)
@@ -362,47 +362,47 @@ namespace MoreSkills.ModSkills.NewSkills
                                             tFixed.Add(new Helper.TamingFix(
                                                 creaturezdoid: CreatureZDOID,
                                                 tfixed: false));
-                                            //Debug.LogWarning("Added default value of Fixed");
+                                            //Utilities.LogWarning("Added default value of Fixed");
                                         }
                                         if (tGotFar.Find(x => x.CreatureZDOID == CreatureZDOID).CreatureZDOID != CreatureZDOID)
                                         {
                                             tGotFar.Add(new Helper.TamingGotFar(
                                                 creaturezdoid: CreatureZDOID,
                                                 gotfar: false));
-                                            //Debug.LogWarning("Added default value of GotFar");
+                                            //Utilities.LogWarning("Added default value of GotFar");
                                         }
                                         if (tDoubleCheck.Find(x => x.CreatureZDOID == CreatureZDOID).CreatureZDOID != CreatureZDOID)
                                         {
                                             tDoubleCheck.Add(new Helper.TamingDoubleCheck(
                                                 creaturezdoid: CreatureZDOID,
                                                 doublecheck: 0));
-                                            //Debug.LogWarning("Added default value of Double");
+                                            //Utilities.LogWarning("Added default value of Double");
                                         }
 
                                         if (level >= (Master / 100))
                                         {
-                                            //Debug.LogWarning("You are a Master at this my level " + level + " master level " + (Master/100));
+                                            //Utilities.LogWarning("You are a Master at this my level " + level + " master level " + (Master/100));
                                             float tameTimeMath = ((oldTime / 2) + 120f) - (oldTime / 2);
 
                                             if (Distance < 75f)
                                             {
                                                 __instance.m_tamingTime = tameTimeMath;
 
-                                                //Debug.LogWarning("Math: " + tameTimeMath);
+                                                //Utilities.LogWarning("Math: " + tameTimeMath);
 
                                                 if (Fixed.Fixed == false)
                                                 {
-                                                    //Debug.LogWarning("Fixed es false");
+                                                    //Utilities.LogWarning("Fixed es false");
                                                     if (__instance.GetRemainingTime() != __instance.m_tamingTime)
                                                     {
                                                         __instance.m_nview.GetZDO().Set("TameTimeLeft", __instance.m_tamingTime);
                                                     }
-                                                    //Debug.LogWarning("Fixed b: " + Fixed.Fixed);
+                                                    //Utilities.LogWarning("Fixed b: " + Fixed.Fixed);
                                                     tFixed.Remove(Fixed);
                                                     tFixed.Add(new Helper.TamingFix(
                                                         creaturezdoid: CreatureZDOID,
                                                         tfixed: true));
-                                                    //Debug.LogWarning("Fixed a: " + Fixed.Fixed);
+                                                    //Utilities.LogWarning("Fixed a: " + Fixed.Fixed);
 
                                                 }
 
@@ -415,12 +415,12 @@ namespace MoreSkills.ModSkills.NewSkills
                                                     }
                                                     else
                                                     {
-                                                        //Debug.LogWarning("GotFar b: " + GotFar.GotFar);
+                                                        //Utilities.LogWarning("GotFar b: " + GotFar.GotFar);
                                                         tGotFar.Remove(GotFar);
                                                         tGotFar.Add(new Helper.TamingGotFar(
                                                             creaturezdoid: CreatureZDOID,
                                                             gotfar: false));
-                                                        //Debug.LogWarning("GotFar a: " + GotFar.GotFar);
+                                                        //Utilities.LogWarning("GotFar a: " + GotFar.GotFar);
                                                     }
                                                     MoreSkills_Instances._player.Message(MessageHud.MessageType.TopLeft, "<color=Green>You are close to " + (__instance.name.Replace("(Clone)", "")) + " the tame time back to normal</color>", 0, null);
                                                 }
@@ -443,7 +443,7 @@ namespace MoreSkills.ModSkills.NewSkills
                                         }
                                         else if (level >= (Tamer / 100))
                                         {
-                                            //Debug.LogWarning("You are a good at this");
+                                            //Utilities.LogWarning("You are a good at this");
                                             float tameTimeMath = ((oldTime / 2) + 120f) - (((oldTime / 2) * ((level - (Tamer / 100)) * (1 / ((Master - Tamer) / 100)))));
 
                                             if (Distance < 75f)
@@ -456,12 +456,12 @@ namespace MoreSkills.ModSkills.NewSkills
                                                     {
                                                         __instance.m_nview.GetZDO().Set("TameTimeLeft", __instance.m_tamingTime);
                                                     }
-                                                    //Debug.LogWarning("Fixed b: " + Fixed.Fixed);
+                                                    //Utilities.LogWarning("Fixed b: " + Fixed.Fixed);
                                                     tFixed.Remove(Fixed);
                                                     tFixed.Add(new Helper.TamingFix(
                                                         creaturezdoid: CreatureZDOID,
                                                         tfixed: true));
-                                                    //Debug.LogWarning("Fixed a: " + Fixed.Fixed);
+                                                    //Utilities.LogWarning("Fixed a: " + Fixed.Fixed);
                                                 }
 
                                                 if (GotFar.GotFar == true)
@@ -473,12 +473,12 @@ namespace MoreSkills.ModSkills.NewSkills
                                                     }
                                                     else
                                                     {
-                                                        //Debug.LogWarning("GotFar b: " + GotFar.GotFar);
+                                                        //Utilities.LogWarning("GotFar b: " + GotFar.GotFar);
                                                         tGotFar.Remove(GotFar);
                                                         tGotFar.Add(new Helper.TamingGotFar(
                                                             creaturezdoid: CreatureZDOID,
                                                             gotfar: false));
-                                                        //Debug.LogWarning("GotFar a: " + GotFar.GotFar);
+                                                        //Utilities.LogWarning("GotFar a: " + GotFar.GotFar);
                                                     }
                                                     MoreSkills_Instances._player.Message(MessageHud.MessageType.TopLeft, "<color=Green>You are close to " + (__instance.name.Replace("(Clone)", "")) + " the tame time back to normal</color>", 0, null);
                                                 }
@@ -501,7 +501,7 @@ namespace MoreSkills.ModSkills.NewSkills
                                         }
                                         else if (level >= (Unlock / 100))
                                         {
-                                            //Debug.LogWarning("You are a ok at this");
+                                            //Utilities.LogWarning("You are a ok at this");
                                             float tameTimeMath = oldTime - ((oldTime / 2) * ((level - (Unlock / 100)) * (1 / ((Tamer - Unlock) / 100))));
 
                                             if (Distance < 75f)
@@ -516,12 +516,12 @@ namespace MoreSkills.ModSkills.NewSkills
                                                     }
                                                     else
                                                     {
-                                                        //Debug.LogWarning("Fixed b: " + Fixed.Fixed);
+                                                        //Utilities.LogWarning("Fixed b: " + Fixed.Fixed);
                                                         tFixed.Remove(Fixed);
                                                         tFixed.Add(new Helper.TamingFix(
                                                             creaturezdoid: CreatureZDOID,
                                                             tfixed: true));
-                                                        //Debug.LogWarning("Fixed a: " + Fixed.Fixed);
+                                                        //Utilities.LogWarning("Fixed a: " + Fixed.Fixed);
                                                     }
                                                 }
 
@@ -534,12 +534,12 @@ namespace MoreSkills.ModSkills.NewSkills
                                                     }
                                                     else
                                                     {
-                                                        //Debug.LogWarning("GotFar b: " + GotFar.GotFar);
+                                                        //Utilities.LogWarning("GotFar b: " + GotFar.GotFar);
                                                         tGotFar.Remove(GotFar);
                                                         tGotFar.Add(new Helper.TamingGotFar(
                                                             creaturezdoid: CreatureZDOID,
                                                             gotfar: false));
-                                                        //Debug.LogWarning("GotFar a: " + GotFar.GotFar);
+                                                        //Utilities.LogWarning("GotFar a: " + GotFar.GotFar);
                                                     }
                                                     MoreSkills_Instances._player.Message(MessageHud.MessageType.TopLeft, "<color=Green>You are close to " + (__instance.name.Replace("(Clone)", "")) + " the tame time back to normal</color>", 0, null);
                                                 }
@@ -562,7 +562,7 @@ namespace MoreSkills.ModSkills.NewSkills
                                         }
                                         else
                                         {
-                                            //Debug.LogWarning("You Dont know how to tame this");
+                                            //Utilities.LogWarning("You Dont know how to tame this");
                                             float tameTimeMath = oldTime * (Unlock - (level * 100));
 
                                             if (Distance < 75f)
@@ -575,12 +575,12 @@ namespace MoreSkills.ModSkills.NewSkills
                                                     {
                                                         __instance.m_nview.GetZDO().Set("TameTimeLeft", __instance.m_tamingTime);
                                                     }
-                                                    //Debug.LogWarning("Fixed b: " + Fixed.Fixed);
+                                                    //Utilities.LogWarning("Fixed b: " + Fixed.Fixed);
                                                     tFixed.Remove(Fixed);
                                                     tFixed.Add(new Helper.TamingFix(
                                                         creaturezdoid: CreatureZDOID,
                                                         tfixed: true));
-                                                    //Debug.LogWarning("Fixed a: " + Fixed.Fixed);
+                                                    //Utilities.LogWarning("Fixed a: " + Fixed.Fixed);
                                                 }
 
                                                 if (GotFar.GotFar == true)
@@ -592,12 +592,12 @@ namespace MoreSkills.ModSkills.NewSkills
                                                     }
                                                     else
                                                     {
-                                                        //Debug.LogWarning("GotFar b: " + GotFar.GotFar);
+                                                        //Utilities.LogWarning("GotFar b: " + GotFar.GotFar);
                                                         tGotFar.Remove(GotFar);
                                                         tGotFar.Add(new Helper.TamingGotFar(
                                                             creaturezdoid: CreatureZDOID,
                                                             gotfar: false));
-                                                        //Debug.LogWarning("GotFar a: " + GotFar.GotFar);
+                                                        //Utilities.LogWarning("GotFar a: " + GotFar.GotFar);
                                                     }
                                                     MoreSkills_Instances._player.Message(MessageHud.MessageType.TopLeft, "<color=Green>You are close to " + (__instance.name.Replace("(Clone)", "")) + " the tame time back to normal</color>", 0, null);
                                                 }
@@ -660,12 +660,12 @@ namespace MoreSkills.ModSkills.NewSkills
                                                 {
                                                     __instance.m_nview.GetZDO().Set("TameTimeLeft", __instance.m_tamingTime);
                                                 }
-                                                //Debug.LogWarning("Fixed b: " + Fixed.Fixed);
+                                                //Utilities.LogWarning("Fixed b: " + Fixed.Fixed);
                                                 tFixed.Remove(Fixed);
                                                 tFixed.Add(new Helper.TamingFix(
                                                     creaturezdoid: CreatureZDOID,
                                                     tfixed: true));
-                                                //Debug.LogWarning("Fixed a: " + Fixed.Fixed);
+                                                //Utilities.LogWarning("Fixed a: " + Fixed.Fixed);
                                             }
 
                                             if (GotFar.GotFar == true)
@@ -677,12 +677,12 @@ namespace MoreSkills.ModSkills.NewSkills
                                                 }
                                                 else
                                                 {
-                                                    //Debug.LogWarning("GotFar b: " + GotFar.GotFar);
+                                                    //Utilities.LogWarning("GotFar b: " + GotFar.GotFar);
                                                     tGotFar.Remove(GotFar);
                                                     tGotFar.Add(new Helper.TamingGotFar(
                                                         creaturezdoid: CreatureZDOID,
                                                         gotfar: false));
-                                                    //Debug.LogWarning("GotFar a: " + GotFar.GotFar);
+                                                    //Utilities.LogWarning("GotFar a: " + GotFar.GotFar);
                                                 }
                                                 MoreSkills_Instances._player.Message(MessageHud.MessageType.TopLeft, "<color=Green>You are close to " + (__instance.name.Replace("(Clone)", "")) + " the tame time back to normal</color>", 0, null);
                                             }
@@ -712,7 +712,7 @@ namespace MoreSkills.ModSkills.NewSkills
                                     }
                                 }
 
-                                //Debug.LogWarning("TameTime: " + __instance.m_nview.GetZDO().GetFloat("TameTimeLeft"));
+                                //Utilities.LogWarning("TameTime: " + __instance.m_nview.GetZDO().GetFloat("TameTimeLeft"));
                             }
                             else if (__instance.m_character.GetHealth() <= 0)
                             {
@@ -728,7 +728,7 @@ namespace MoreSkills.ModSkills.NewSkills
                             else if (__instance.m_character.IsTamed())
                             {
                                 TamingSkillIncrease += ((__instance.m_tamingTime / 200) * __instance.m_character.GetLevel()) * MoreSkills_TamingConfig.TamingSkillIncreaseMultiplier.Value;
-                                Debug.Log("[MoreSkills] Gained " + TamingSkillIncrease + " EXP at Taming");
+                                Utilities.Log("Gained " + TamingSkillIncrease + " EXP at Taming");
                                 var tsave = tSaves.Find(x => x.CreatureZDOID == CreatureZDOID);
                                 tSaves.Remove(tsave);
                                 var tfix = tFixed.Find(x => x.CreatureZDOID == CreatureZDOID);
@@ -769,17 +769,17 @@ namespace MoreSkills.ModSkills.NewSkills
                             || __instance.m_character.GetZDOID() == Creature4
                             || __instance.m_character.GetZDOID() == Creature5)
                         {
-                            Debug.LogWarning("TiempoZDO: " + __instance.m_nview.GetZDO().GetFloat("TameTimeLeft"));
-                            Debug.LogWarning("ID: " + __instance.m_character.GetZDOID());
+                            Utilities.LogWarning("TiempoZDO: " + __instance.m_nview.GetZDO().GetFloat("TameTimeLeft"));
+                            Utilities.LogWarning("ID: " + __instance.m_character.GetZDOID());
 
 
-                            Debug.LogWarning("Animal: " + __instance.m_character.m_name);
-                            Debug.LogWarning("TA: " + __instance.m_tamingTime);
-                            Debug.LogWarning("Test2: " + __instance.m_fedDuration);
+                            Utilities.LogWarning("Animal: " + __instance.m_character.m_name);
+                            Utilities.LogWarning("TA: " + __instance.m_tamingTime);
+                            Utilities.LogWarning("Test2: " + __instance.m_fedDuration);
 
-                            Debug.LogWarning("Tameness: " + __instance.GetTameness());
-                            Debug.LogWarning("Distance from Creature: " + Distance);
-                            Debug.LogWarning("Tiempo Funciton: " + __instance.GetRemainingTime());
+                            Utilities.LogWarning("Tameness: " + __instance.GetTameness());
+                            Utilities.LogWarning("Distance from Creature: " + Distance);
+                            Utilities.LogWarning("Tiempo Funciton: " + __instance.GetRemainingTime());
                         }*/
                     }
                 }
@@ -986,9 +986,9 @@ namespace MoreSkills.ModSkills.NewSkills
                                             Unlocklvl1 = 90f;
                                             if (tLevels.Find(tLevel => tLevel.Creature == sCreature).Creature != sCreature)
                                             {
-                                                Debug.LogWarning("[MoreSkills] Creature Tame Levels Missing: " + __instance.name.Replace("(Clone)", ""));
-                                                Debug.LogWarning("[MoreSkills] Adding Creature to Temp with Default Needed Levels. Unlock 30. Tamer 60. Master 90.");
-                                                Debug.LogWarning("[MoreSkills] Report it if you want custom numbers to the creature, and the levels. Thanks!");
+                                                Utilities.LogWarning("Creature Tame Levels Missing: " + __instance.name.Replace("(Clone)", ""));
+                                                Utilities.LogWarning("Adding Creature to Temp with Default Needed Levels. Unlock 30. Tamer 60. Master 90.");
+                                                Utilities.LogWarning("Report it if you want custom numbers to the creature, and the levels. Thanks!");
                                                 tLevels.Add(new Helper.TamingLevels(
                                                     creature: sCreature,
                                                     master: Masterlvl1,
@@ -1000,7 +1000,7 @@ namespace MoreSkills.ModSkills.NewSkills
                                     }
                                     if (tLevels.Find(tLevel => tLevel.Creature == sCreature).Creature != sCreature)
                                     {
-                                        Debug.Log("[MoreSkills] Saved Taming Levels from : " + __instance.name.Replace("(Clone)", "") + " to the Temporal Database");
+                                        Utilities.Log("Saved Taming Levels from : " + __instance.name.Replace("(Clone)", "") + " to the Temporal Database");
                                         tLevels.Add(new Helper.TamingLevels(
                                             creature: sCreature,
                                             master: Masterlvl1,
@@ -1031,7 +1031,7 @@ namespace MoreSkills.ModSkills.NewSkills
                                     }
                                     if (tLevels.Find(tLevel => tLevel.Creature == sCreature).Creature != sCreature)
                                     {
-                                        Debug.Log("[MoreSkills] Saved Taming Levels from : " + __instance.name.Replace("(Clone)", "") + " to the Temporal Database");
+                                        Utilities.Log("Saved Taming Levels from : " + __instance.name.Replace("(Clone)", "") + " to the Temporal Database");
                                         tLevels.Add(new Helper.TamingLevels(
                                             creature: sCreature,
                                             master: Masterlvl1,
@@ -1240,9 +1240,9 @@ namespace MoreSkills.ModSkills.NewSkills
                                             __result += Localization.instance.Localize("\n<color=orange>Crouch to see Tame Stats</color>");
                                     }
                                 }
-                                //Debug.LogWarning("Nombre: " + Name);
+                                //Utilities.LogWarning("Nombre: " + Name);
                             }
-                            //Debug.LogWarning("TestTameness: " + __instance.GetTameness() + " TestTamed: " + __instance.m_character.IsTamed() + " TestPlayer: " + __instance.m_character.IsPlayer());
+                            //Utilities.LogWarning("TestTameness: " + __instance.GetTameness() + " TestTamed: " + __instance.m_character.IsTamed() + " TestPlayer: " + __instance.m_character.IsPlayer());
                         }
                     }
                 }
@@ -1263,7 +1263,7 @@ namespace MoreSkills.ModSkills.NewSkills
                             if (__instance.m_input.text.StartsWith("/name"))
                             {
                                 Name = __instance.m_input.text.Replace("/name ", "");
-                                //Debug.LogWarning("Input: " + Name);
+                                //Utilities.LogWarning("Input: " + Name);
                                 return;
                             }
                         }

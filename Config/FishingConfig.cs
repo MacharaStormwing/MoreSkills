@@ -2,6 +2,7 @@
 using BepInEx.Configuration;
 using HarmonyLib;
 using MoreSkills.UI;
+using MoreSkills.Utility;
 using Pipakin.SkillInjectorMod;
 using System;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace MoreSkills.Config
     {
         public void Awake()
         {
-            Debug.Log("[MoreSkills] Loading Fishing Skill...");
+            Utilities.Log("Loading Fishing Skill...");
             //Enablers
             //Fishing Skill
             EnableFishingSkill = base.Config.Bind<bool>("1. Enablers", "Enable Fishing Skill", true, "Enables or disables the Fishing Skill.");
@@ -47,44 +48,44 @@ namespace MoreSkills.Config
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("Error Registering new Skill 'Fishing'" + e.Message);
+                    Utilities.LogError("Error Registering new Skill 'Fishing'" + e.Message);
                 }
 
             //--
-            Debug.Log("[MoreSkills] Fishing Skill Patched!");
+            Utilities.Log("Fishing Skill Patched!");
             harmonyFishing = new Harmony("MoreSkills.FishingConfig.GuiriGuyMods");
 
             //Logs
             if (!EnableFishingSkill.Value)
-                Debug.LogWarning("[MoreSkills] Fishing Skill Disabled");
+                Utilities.LogWarning("Fishing Skill Disabled");
             else
             {
-                Debug.Log("[MoreSkills] Fishing Skill Enabled");
+                Utilities.Log("Fishing Skill Enabled");
                 if (!EnableFishStackMod.Value)
-                    Debug.LogWarning("[MoreSkills] Fishing/Fish Stack Amount Mod Disabled");
+                    Utilities.LogWarning("Fishing/Fish Stack Amount Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Fishing/Fish Stack Amount  Mod Enabled");
+                    Utilities.Log("Fishing/Fish Stack Amount  Mod Enabled");
                 if (!EnableFishBaseHookMod.Value)
-                    Debug.LogWarning("[MoreSkills] Fishing/Fish Base Hook Chance Mod Disabled");
+                    Utilities.LogWarning("Fishing/Fish Base Hook Chance Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Fishing/Fish Base Hook Chance Mod Enabled");
+                    Utilities.Log("Fishing/Fish Base Hook Chance Mod Enabled");
                 if (!EnableFishVariety.Value)
-                    Debug.LogWarning("[MoreSkills] Fishing/Variety Mod Disabled");
+                    Utilities.LogWarning("Fishing/Variety Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Fishing/Variety Mod Enabled");
+                    Utilities.Log("Fishing/Variety Mod Enabled");
                 if (!EnableFishingStaminaMod.Value)
-                    Debug.LogWarning("[MoreSkills] Fishing/Stamina Drain Decrease Mod Disabled");
+                    Utilities.LogWarning("Fishing/Stamina Drain Decrease Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Fishing/Stamina Drain Decrease Mod Enabled");
+                    Utilities.Log("Fishing/Stamina Drain Decrease Mod Enabled");
             }
 
 
-            Debug.Log("[MoreSkills] Fishing Skill Loaded!");
+            Utilities.Log("Fishing Skill Loaded!");
         }
         private void OnDestroy()
         {
 
-            Debug.Log("[MoreSkills] Fishing Skill UnPatched!");
+            Utilities.Log("Fishing Skill UnPatched!");
             harmonyFishing.UnpatchSelf();
         }
 

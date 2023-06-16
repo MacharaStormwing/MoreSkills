@@ -38,11 +38,11 @@ namespace MoreSkills.ModSkills.NewSkills
                                     max: drop.m_amountMax,
                                     min: drop.m_amountMin,
                                     chance: drop.m_chance));
-                                Debug.Log("[MoreSkills]: Hunting: Added Creature to the Temporal Hunting Database");
+                                Utilities.Log("Hunting: Added Creature to the Temporal Hunting Database");
                             }
 
-                            //Debug.Log("Updating mob: " + __instance.name.Replace("(Clone)", "") + " Level: " + __instance.m_character.GetLevel() + " Item: " + drop.m_prefab.name.Replace("(UnityEngine.GameObject)", "") + " Min: " + drop.m_amountMin + " Max: " + drop.m_amountMax + " Chance: " + drop.m_chance);
-                            //Debug.LogWarning("Name ins: " + nameprefab + " Name list: " + hDrops.Find(hDrop => hDrop.CreaturePrefab == nameprefab).CreaturePrefab);
+                            //Utilities.Log("Updating mob: " + __instance.name.Replace("(Clone)", "") + " Level: " + __instance.m_character.GetLevel() + " Item: " + drop.m_prefab.name.Replace("(UnityEngine.GameObject)", "") + " Min: " + drop.m_amountMin + " Max: " + drop.m_amountMax + " Chance: " + drop.m_chance);
+                            //Utilities.LogWarning("Name ins: " + nameprefab + " Name list: " + hDrops.Find(hDrop => hDrop.CreaturePrefab == nameprefab).CreaturePrefab);
 
                             if (!MoreSkills_HuntingConfig.EnableHuntingNormalMobsMod.Value)
                                 if (!drop.m_prefab.name.Contains("Trophy") || !drop.m_prefab.name.Contains("Blob"))
@@ -91,10 +91,10 @@ namespace MoreSkills.ModSkills.NewSkills
                                 if (Chance)
                                     drop.m_chance = vChance + ((1 - vChance) * level);
 
-                                //Debug.Log("Updated mob: " + __instance.name.Replace("(Clone)", "") + " Level: " + __instance.m_character.GetLevel() + " Item: " + drop.m_prefab.name.Replace("(UnityEngine.GameObject)", "") + " Min: " + drop.m_amountMin + " Max: " + drop.m_amountMax + " Chance: " + drop.m_chance);
-                            } 
+                                //Utilities.Log("Updated mob: " + __instance.name.Replace("(Clone)", "") + " Level: " + __instance.m_character.GetLevel() + " Item: " + drop.m_prefab.name.Replace("(UnityEngine.GameObject)", "") + " Min: " + drop.m_amountMin + " Max: " + drop.m_amountMax + " Chance: " + drop.m_chance);
+                            }
                         }
-                        Debug.Log("[MoreSkills]: Hunting: Updated mob's loot: " + __instance.name.Replace("(Clone)", "") + " Level: " + __instance.m_character.GetLevel());
+                        Utilities.Log("Hunting: Updated mob's loot: " + __instance.name.Replace("(Clone)", "") + " Level: " + __instance.m_character.GetLevel());
                     }
                 }
             }
@@ -112,7 +112,7 @@ namespace MoreSkills.ModSkills.NewSkills
                         if (MoreSkills_Instances._CDAttacker == MoreSkills_Instances._player.GetZDOID())
                         {
                             HuntIncrease += ((__instance.m_character.GetMaxHealth()) / 20) * CLevel;
-                            //Debug.LogWarning("Vida máx: " + __instance.m_character.GetMaxHealth() + " Nivel: " + __instance.m_character.GetLevel());
+                            //Utilities.LogWarning("Vida máx: " + __instance.m_character.GetMaxHealth() + " Nivel: " + __instance.m_character.GetLevel());
                         }
 
                         if (HuntIncrease > 0.1f)

@@ -2,6 +2,7 @@
 using BepInEx.Configuration;
 using HarmonyLib;
 using MoreSkills.UI;
+using MoreSkills.Utility;
 using Pipakin.SkillInjectorMod;
 using System;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace MoreSkills.Config
     {
         public void Awake()
         {
-            Debug.Log("[MoreSkills] Loading Hunting Skill...");
+            Utilities.Log("Loading Hunting Skill...");
             //1. 1. Enablers
             //Hunting
             EnableHuntingSkill = base.Config.Bind<bool>("1. Enablers", "Enable Hunting Skill", true, "Enables or disables the Hunting Skill Modification");
@@ -517,55 +518,55 @@ namespace MoreSkills.Config
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("Error Registering new Skill 'Hunting'" + e.Message);
+                    Utilities.LogError("Error Registering new Skill 'Hunting'" + e.Message);
                 }
 
             //--
-            Debug.Log("[MoreSkills] Hunting Skill Patched!");
+            Utilities.Log("Hunting Skill Patched!");
             harmonyHunting = new Harmony("MoreSkills.HuntingConfig.GuiriGuyMods");
 
             //Logs
             if (!EnableHuntingSkill.Value)
-                Debug.LogWarning("[MoreSkills] Hunting Skill Mod Disabled");
+                Utilities.LogWarning("Hunting Skill Mod Disabled");
             else
             {
-                Debug.Log("[MoreSkills] Hunting Skill Mod Enabled");
+                Utilities.Log("Hunting Skill Mod Enabled");
                 if (!EnableHuntingNormalMobsMod.Value)
-                    Debug.LogWarning("[MoreSkills] Hunting/Normal Mobs Mod Disabled");
+                    Utilities.LogWarning("Hunting/Normal Mobs Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Hunting/Normal Mobs Mod Enabled");
+                    Utilities.Log("Hunting/Normal Mobs Mod Enabled");
                 /*if (!EnableHuntingBossMod.Value)
-                    Debug.LogWarning("[MoreSkills] Hunting/Boss Mobs Mod Disabled");
+                    Utilities.LogWarning("Hunting/Boss Mobs Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Hunting/Boss Mobs Mod Enabled");*/
+                    Utilities.Log("Hunting/Boss Mobs Mod Enabled");*/
                 if (!EnableHuntingTrophyMod.Value)
-                    Debug.LogWarning("[MoreSkills] Hunting/Trophy Mod Disabled");
+                    Utilities.LogWarning("Hunting/Trophy Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Hunting/Trophy Mod Enabled");
+                    Utilities.Log("Hunting/Trophy Mod Enabled");
                 if (!EnableHuntingMinMaxMod.Value)
-                    Debug.LogWarning("[MoreSkills] Hunting/MinMax Mobs Mod Disabled");
+                    Utilities.LogWarning("Hunting/MinMax Mobs Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Hunting/MinMax Mobs Mod Enabled");
+                    Utilities.Log("Hunting/MinMax Mobs Mod Enabled");
                 if (!EnableTrialsOfOdinCompatibility.Value)
-                    Debug.LogWarning("[MoreSkills] Hunting/If you got Trials of Odin I highly recommend you to activate this. Otherwise don't read me. I know it's red. But it's all ok, don't worry :P");
+                    Utilities.LogWarning("Hunting/If you got Trials of Odin I highly recommend you to activate this. Otherwise don't read me. I know it's red. But it's all ok, don't worry :P");
                 else
-                    Debug.Log("[MoreSkills] Hunting/Trials of Odin Compatibility Enabled");
+                    Utilities.Log("Hunting/Trials of Odin Compatibility Enabled");
                 if (!EnableHuntingChanceMod.Value)
-                    Debug.LogWarning("[MoreSkills] Hunting/Chance Mod Disabled");
+                    Utilities.LogWarning("Hunting/Chance Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Hunting/Chance Mod Enabled");
+                    Utilities.Log("Hunting/Chance Mod Enabled");
                 /*if (!EnableHuntingChanceMod.Value)
-                    Debug.LogWarning("[MoreSkills] Hunting/Blob Spawn Mod Disabled");
+                    Utilities.LogWarning("Hunting/Blob Spawn Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Hunting/Blob Spawn Mod Enabled");*/
+                    Utilities.Log("Hunting/Blob Spawn Mod Enabled");*/
             }
 
-            Debug.Log("[MoreSkills] Hunting Skill Loaded!");
+            Utilities.Log("Hunting Skill Loaded!");
         }
         private void OnDestroy()
         {
 
-            Debug.Log("[MoreSkills] Hunting Skill UnPatched!");
+            Utilities.Log("Hunting Skill UnPatched!");
             harmonyHunting.UnpatchSelf();
         }
 

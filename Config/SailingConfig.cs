@@ -2,6 +2,7 @@
 using BepInEx.Configuration;
 using HarmonyLib;
 using MoreSkills.UI;
+using MoreSkills.Utility;
 using Pipakin.SkillInjectorMod;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace MoreSkills.Config
     {
         public void Awake()
         {
-            Debug.Log("[MoreSkills] Loading Sailing Skill...");
+            Utilities.Log("Loading Sailing Skill...");
             //Enablers
             //Sailing
             EnableSailingMod = base.Config.Bind<bool>("Enablers", "Enable Sailing Mod", true, "Enables or disables the Sailing Modification");
@@ -48,34 +49,34 @@ namespace MoreSkills.Config
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("Error Registering new Skill 'Sailing'" + e.Message);
+                    Utilities.LogError("Error Registering new Skill 'Sailing'" + e.Message);
                 }
 
             //--
-            Debug.Log("[MoreSkills] Sailing Skill Patched!");
+            Utilities.Log("Sailing Skill Patched!");
             harmonySailing = new Harmony("MoreSkills.SailingConfig.GuiriGuyMods");
 
             //Logs
             if (!EnableSailingMod.Value)
-                Debug.LogWarning("[MoreSkills] Sailing Skill Mod Disabled");
+                Utilities.LogWarning("Sailing Skill Mod Disabled");
             else
             {
-                Debug.Log("[MoreSkills] Sailing Skill Mod Enabled");
+                Utilities.Log("Sailing Skill Mod Enabled");
                 if (!EnableShipAcceleration.Value)
-                    Debug.LogWarning("[MoreSkills] Sailing/Ship Acceleration Mod Disabled");
+                    Utilities.LogWarning("Sailing/Ship Acceleration Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Sailing/Ship Acceleration Mod Enabled");
+                    Utilities.Log("Sailing/Ship Acceleration Mod Enabled");
                 if (!EnableShipCrew.Value)
-                    Debug.LogWarning("[MoreSkills]Sailing/CrewMates Mod Disabled");
+                    Utilities.LogWarning("Sailing/CrewMates Mod Disabled");
                 else
-                    Debug.Log("[MoreSkills] Sailing/CrewMates Mod Enabled");
+                    Utilities.Log("Sailing/CrewMates Mod Enabled");
             }
-            Debug.Log("[MoreSkills] Sailing Skill Loaded!");
+            Utilities.Log("Sailing Skill Loaded!");
         }
         private void OnDestroy()
         {
 
-            Debug.Log("[MoreSkills] Sailing Skill UnPatched!");
+            Utilities.Log("Sailing Skill UnPatched!");
             harmonySailing.UnpatchSelf();
         }
 

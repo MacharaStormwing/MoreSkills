@@ -204,7 +204,8 @@
             <Major>$(AssemblyVersion.Split('.')[0])</Major>
             <Minor>$(AssemblyVersion.Split('.')[1])</Minor>
             <Patch>$(AssemblyVersion.Split('.')[2])</Patch>
-            <PackageName>$(AssemblyName)_v$(Major).$(Minor).$(Patch)</PackageName>
+			<revision>$(AssemblyVersion.Split('.')[3])</revision>
+            <PackageName>$(AssemblyName)_v$(Major).$(Minor).$(Patch).$(revision)</PackageName>
             <PackageDir>Thunderstore\$(PackageName)</PackageDir>
         </PropertyGroup>
     </Target>

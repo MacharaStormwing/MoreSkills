@@ -52,7 +52,7 @@ namespace MoreSkills.ModSkills
                                 }
                             }
                             Saved = true;
-                            Log("Saved All Objects in DataBase");
+                            Utilities.Log("Saved All Objects in DataBase");
                         }
 
                         bool advancedLogging = MoreSkills_CraftingConfig.EnableDetailedLogging.Value;
@@ -85,7 +85,7 @@ namespace MoreSkills.ModSkills
                                     }
 
                                     if (advancedLogging)
-                                        Log("Show (Crafting): Handling ObjNumItem '"
+                                        Utilities.Log("Show (Crafting): Handling ObjNumItem '"
                                             + getcSaves.ObjNumItem + "': old amount: "
                                             + getcSaves.ItemCNum + " new amount: " + req.m_amount
                                             + " (amountPerLevel: " + req.m_amountPerLevel
@@ -93,7 +93,7 @@ namespace MoreSkills.ModSkills
                                 }
                                 else
                                 {
-                                    LogWarning("Show (Crafting): Stored objnumitem '"
+                                    Utilities.LogWarning("Show (Crafting): Stored objnumitem '"
                                         + getcSaves.ObjNumItem + "' does not match expected objnumitm '"
                                         + objnumitem + "'");
                                 }
@@ -147,14 +147,14 @@ namespace MoreSkills.ModSkills
                                     }
 
                                     if (advancedLogging)
-                                        Log("DoCrafting: Handling ObjNumItem '"
+                                        Utilities.Log("DoCrafting: Handling ObjNumItem '"
                                         + getcSaves.ObjNumItem + "': old amount: "
                                         + getcSaves.ItemCNum + " new amount: " + req.m_amount
                                         + " (amountPerLevel: " + req.m_amountPerLevel
                                         + " ) after applying item multiplier: " + appliedItemMultiplier);
                                 } else
                                 {
-                                    LogWarning("DoCrafting: Stored objnumitem '"
+                                    Utilities.LogWarning("DoCrafting: Stored objnumitem '"
                                         + getcSaves.ObjNumItem  + "' does not match expected objnumitm '"
                                         + objnumitem + "'");
                                 }
@@ -181,7 +181,7 @@ namespace MoreSkills.ModSkills
                         }
 
                         MoreSkills_Instances._player.RaiseSkill((Skills.SkillType)MoreSkills_CraftingConfig.CraftingSkill_Type, ((CraftSkillInc * MoreSkills_CraftingConfig.CraftingSkillIncreaseMultiplier.Value)) / 10);
-                        Log("Granted Crafting EXP: " + (CraftSkillInc * MoreSkills_CraftingConfig.CraftingSkillIncreaseMultiplier.Value));
+                        Utilities.Log("Granted Crafting EXP: " + (CraftSkillInc * MoreSkills_CraftingConfig.CraftingSkillIncreaseMultiplier.Value));
                         CraftSkillInc = 0;
                     }
                 }
@@ -220,7 +220,7 @@ namespace MoreSkills.ModSkills
                 appliedItemMultiplier = multiplier - ((level * (1f / middle)) * (multiplier - 1f));
 
                 if (advancedLogging)
-                    Log(caltculatedAt + ": calculated appliedItemMultiplier "
+                    Utilities.Log(caltculatedAt + ": calculated appliedItemMultiplier "
                         + appliedItemMultiplier + " based on crafing skill level " + level
                         + " and multiplier " + multiplier + " because skill is below " + middle);
             }
@@ -232,7 +232,7 @@ namespace MoreSkills.ModSkills
                 appliedItemMultiplier = 1f / appliedItemDivider;
 
                 if (advancedLogging)
-                    Log(caltculatedAt + ": calculated appliedItemMultiplier "
+                    Utilities.Log(caltculatedAt + ": calculated appliedItemMultiplier "
                     + appliedItemMultiplier + " based on crafing skill level " + level
                     + " and divider " + divider + " because skill is aboveequal " + middle);
             }
@@ -240,15 +240,7 @@ namespace MoreSkills.ModSkills
             return appliedItemMultiplier;
         }
 
-        public static void Log(string message, [CallerMemberName]string method = null)
-        {
-            Debug.Log($"[MoreSkills].[{method ?? "null"}] {message}");
-        }
-
-        public static void LogWarning(string message, [CallerMemberName] string method = null)
-        {
-            Debug.LogWarning($"[MoreSkills].[{method ?? "null"}] {message}");
-        }
+        
     }
 
 }

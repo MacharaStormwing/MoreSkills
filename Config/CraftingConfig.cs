@@ -2,6 +2,7 @@
 using BepInEx.Configuration;
 using HarmonyLib;
 using MoreSkills.UI;
+using MoreSkills.Utility;
 using Pipakin.SkillInjectorMod;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,8 @@ namespace MoreSkills.Config
     {
         public void Awake()
         {
-            Debug.Log("[MoreSkills] Loading All MoreSkills Configs. Please, wait a moment...");
-            Debug.Log("[MoreSkills] Loading CraftingSkill");
+            Utilities.Log("Loading All MoreSkills Configs. Please, wait a moment...");
+            Utilities.Log("Loading CraftingSkill");
             //1. Enablers
             //Crafting
             EnableCraftingSkill = base.Config.Bind<bool>("1. Enablers", "Enable Crafting Mod", true, "Enables or disables the Crafting Resources Modification");
@@ -39,27 +40,27 @@ namespace MoreSkills.Config
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("Error Registering new Skill 'Crafting'" + e.Message);
+                    Utilities.LogError("Error Registering new Skill 'Crafting'" + e.Message);
                 }
 
             //--
-            Debug.Log("[MoreSkills] Crafting Skill Patched!");
+            Utilities.Log("Crafting Skill Patched!");
             harmonyCraft = new Harmony("MoreSkills.CraftingConfig.GuiriGuyMods");
 
             //Logs
 
             if (!EnableCraftingSkill.Value)
-                Debug.LogWarning("[MoreSkills] Crafting Mod Disabled");
+                Utilities.LogWarning("Crafting Mod Disabled");
             else
-                Debug.Log("[MoreSkills] Crafting Mod Enabled");
+                Utilities.Log("Crafting Mod Enabled");
 
-            Debug.Log("[MoreSkills] Crafting Skill Loaded!");
+            Utilities.Log("Crafting Skill Loaded!");
         }
 
         private void OnDestroy()
         {
 
-            Debug.Log("[MoreSkills] Crafting Skill UnPatched!");
+            Utilities.Log("Crafting Skill UnPatched!");
             harmonyCraft.UnpatchSelf();
         }
 

@@ -2,6 +2,7 @@
 using BepInEx.Configuration;
 using HarmonyLib;
 using MoreSkills.UI;
+using MoreSkills.Utility;
 using Pipakin.SkillInjectorMod;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace MoreSkills.Config
     {
         public void Awake()
         {
-            Debug.Log("[MoreSkills] Loading Vitality Skill ...");
+            Utilities.Log("Loading Vitality Skill ...");
             //Enablers
             //Vitality.Health
             EnableHealthMod = base.Config.Bind<bool>("Enablers", "Enable Vitality Mod", true, "Enables or disables the Vitality Modification.");
@@ -35,27 +36,27 @@ namespace MoreSkills.Config
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("Error Registering new Skill 'Vitality'" + e.Message);
+                    Utilities.LogError("Error Registering new Skill 'Vitality'" + e.Message);
                 }
 
             //--
-            Debug.Log("[MoreSkills] Vitality Skill Patched!");
+            Utilities.Log("Vitality Skill Patched!");
             harmonyVitality = new Harmony("MoreSkills.VitalityConfig.GuiriGuyMods");
             harmonyVitality.PatchAll();
 
             //Logs            
             if (!EnableHealthMod.Value)
-                Debug.LogWarning("[MoreSkills] Health Mod Disabled");
+                Utilities.LogWarning("Health Mod Disabled");
             else
-                Debug.Log("[MoreSkills] Health Mod Enabled");
+                Utilities.Log("Health Mod Enabled");
 
-            Debug.Log("[MoreSkills] Vitality Skill Loaded!");
-            Debug.Log("[MoreSkills] Everything is Loaded. Hope you love the mod :D");
+            Utilities.Log("Vitality Skill Loaded!");
+            Utilities.Log("Everything is Loaded. Hope you love the mod :D");
         }
         private void OnDestroy()
         {
 
-            Debug.Log("[MoreSkills] Vitality Skill UnPatched!");
+            Utilities.Log("Vitality Skill UnPatched!");
             harmonyVitality.UnpatchSelf();
         }
 
