@@ -10,10 +10,12 @@ using UnityEngine;
 
 namespace MoreSkills.Config
 {
-    [BepInPlugin("MoreSkills.StrengthConfig.GuiriGuyMods", "MoreSkills: Strength", "0.0.3")]
+    [BepInPlugin(Plugin_Name, "MoreSkills: Strength", "0.0.3")]
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class MoreSkills_StrengthConfig : BaseUnityPlugin
     {
+        public const String Plugin_Name = "MoreSkills.StrengthConfig.GuiriGuyMods";
+
         public void Awake()
         {            
             Utilities.Log("Loading Strength Skill...");

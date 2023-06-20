@@ -10,10 +10,12 @@ using UnityEngine;
 
 namespace MoreSkills.Config
 {
-    [BepInPlugin("MoreSkills.SailingConfig", "MoreSkills: Sailing", "0.0.1")]
+    [BepInPlugin(Plugin_Name, "MoreSkills: Sailing", "0.0.1")]
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class MoreSkills_SailingConfig : BaseUnityPlugin
     {
+        public const String Plugin_Name = "MoreSkills.SailingConfig";
+
         public void Awake()
         {
             Utilities.Log("Loading Sailing Skill...");

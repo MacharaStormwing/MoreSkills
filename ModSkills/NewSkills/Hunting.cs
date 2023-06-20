@@ -94,7 +94,7 @@ namespace MoreSkills.ModSkills.NewSkills
                                 //Utilities.Log("Updated mob: " + __instance.name.Replace("(Clone)", "") + " Level: " + __instance.m_character.GetLevel() + " Item: " + drop.m_prefab.name.Replace("(UnityEngine.GameObject)", "") + " Min: " + drop.m_amountMin + " Max: " + drop.m_amountMax + " Chance: " + drop.m_chance);
                             }
                         }
-                        Utilities.Log("Hunting: Updated mob's loot: " + __instance.name.Replace("(Clone)", "") + " Level: " + __instance.m_character.GetLevel());
+                        //Utilities.Log("Hunting: Updated mob's loot: " + __instance.name.Replace("(Clone)", "") + " Level: " + __instance.m_character.GetLevel());
                     }
                 }
             }

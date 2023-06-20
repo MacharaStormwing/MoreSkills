@@ -10,10 +10,12 @@ using UnityEngine;
 
 namespace MoreSkills.Config
 {
-    [BepInPlugin("MoreSkills.VitalityConfig", "MoreSkills: Vitality", "0.0.3")]
+    [BepInPlugin(Plugin_Name, "MoreSkills: Vitality", "0.0.3")]
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class MoreSkills_VitalityConfig : BaseUnityPlugin
     {
+        public const String Plugin_Name = "MoreSkills.VitalityConfig";
+
         public void Awake()
         {
             Utilities.Log("Loading Vitality Skill ...");

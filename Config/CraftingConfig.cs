@@ -5,15 +5,15 @@ using MoreSkills.UI;
 using MoreSkills.Utility;
 using Pipakin.SkillInjectorMod;
 using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace MoreSkills.Config
 {
-    [BepInPlugin("MoreSkills.CraftingConfig", "MoreSkills: Crafting", "0.0.4")]
+    [BepInPlugin(Plugin_Name, "MoreSkills: Crafting", "0.0.4")]
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class MoreSkills_CraftingConfig : BaseUnityPlugin
     {
+        public const String Plugin_Name = "MoreSkills.CraftingConfig";
+
         public void Awake()
         {
             Utilities.Log("Loading All MoreSkills Configs. Please, wait a moment...");
@@ -22,7 +22,7 @@ namespace MoreSkills.Config
             //Crafting
             EnableCraftingSkill = base.Config.Bind<bool>("1. Enablers", "Enable Crafting Mod", true, "Enables or disables the Crafting Resources Modification");
 
-            EnableDetailedLogging = base.Config.Bind<bool>("1. Enablers", "Enable Detailed Crafting Logging", false, "Enables or disables additional logging (such as calculating required item numbers based on crafting skill)");            
+            EnableDetailedLogging = base.Config.Bind<bool>("1. Enablers", "Enable Detailed Crafting Logging", false, "Enables or disables additional logging (such as calculating required item numbers based on crafting skill). This should be disabled unless you need it since it affects performance.");
             //2. Multipliers
             //Crafting
             //Skill

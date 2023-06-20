@@ -5,14 +5,15 @@ using MoreSkills.UI;
 using MoreSkills.Utility;
 using Pipakin.SkillInjectorMod;
 using System;
-using UnityEngine;
 
 namespace MoreSkills.Config
 {
-    [BepInPlugin("MoreSkills.FishingConfig", "MoreSkills: Fishing", "0.0.1")]
+    [BepInPlugin(Plugin_Name, "MoreSkills: Fishing", "0.0.1")]
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class MoreSkills_FishingConfig: BaseUnityPlugin
     {
+        public const String Plugin_Name = "MoreSkills.FishingConfig";
+
         public void Awake()
         {
             Utilities.Log("Loading Fishing Skill...");

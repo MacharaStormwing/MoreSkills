@@ -7,13 +7,19 @@ using UnityEngine;
 
 namespace MoreSkills.Config
 {
-    [BepInPlugin("MoreSkills.OverhaulsConfig", "MoreSkills: Overhauls", "0.0.7")]
+    [BepInPlugin(Plugin_Name, "MoreSkills: Overhauls", "0.0.8")]
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class MoreSkills_OverhaulsConfig : BaseUnityPlugin
     {
+        public const String Plugin_Name = "MoreSkills.OverhaulsConfig";
+
         public void Awake()
         {
             Utilities.Log("Loading All Overhauls...");
+
+            // Advanced Logging
+            EnableDetailedLogging = base.Config.Bind<bool>("1. Enablers", "Enable Detailed Overhauls Logging", false, "Enables or disables additional logging (such as how drops are handled). This should be disabled unless you need it since it affects performance.");
+
             //Enablers
             //Sneak.CrouchSpeed
             EnableCrouchMod = base.Config.Bind<bool>("1. Enablers: Sneak", "Enable Crouch Speed Mod", true, "Enables or disables the Crouch Speed Modification");
@@ -76,20 +82,20 @@ namespace MoreSkills.Config
             // types of drops recognized when cutting wood using the WoodCutting skill with an axe
             // BeechSeeds,BirchCone,OakSeeds,Acorn,ElderBark,FineWood,FirCone,PineCone,Resin,RoundLog,Wood
             WoodCuttingApplyForItems = base.Config.Bind<String>("3. Baseconfigs: Woodcutting", "WoodCuttingApplyForItems",
-                "BeechSeeds,BirchCone,OakSeeds,Acorn,ElderBark,FineWood,FirCone,PineCone,Resin,RoundLog,Wood",
-                "NOT YET USED: List of items that might drop when applying the skill 'WoodCutting' to apply the skill on and increase drop rates to based on skill level. If an item is not in the list the skill will not be applied. 'Enable WoodCutting Drop Mod' must be true for this to be applied.");
+                "BeechSeeds,BirchCone,OakSeeds,Acorn,ElderBark,FineWood,FirCone,PineCone,Resin,RoundLog,Wood,Uncut_Black_Stone,Uncut_Green_Stone,Uncut_Purple_Stone,Uncut_Blue_Stone,Uncut_Yellow_Stone,Uncut_Red_Stone,Uncut_Orange_Stone",
+                "List of items that might drop when applying the skill 'WoodCutting' to apply the skill on and increase drop rates to based on skill level. If an item is not in the list the skill will not be applied. 'Enable WoodCutting Drop Mod' must be true for this to be applied.");
 
             // types of drops recognized when mining ore, stone or other items using the Pickaxes skill with a pickaxe
             // Chitin,CopperOre,IronScrap,Obsidian,SilverOre,TinOre,Stone
             PickaxeApplyForItems = base.Config.Bind<String>("3. Baseconfigs: Pickaxe", "PickaxeApplyForItems",
                 "Chitin,CopperOre,IronScrap,Obsidian,SilverOre,TinOre,Stone",
-                "NOT YET USED: List of items that might drop when applying the skill Pickaxe to apply the skill on and increase drop rates to based on skill level. If an item is not in the list the skill will not be applied. 'Enable Pickaxe Drop Mod' must be true for this to be applied.");
+                "List of items that might drop when applying the skill Pickaxe to apply the skill on and increase drop rates to based on skill level. If an item is not in the list the skill will not be applied. 'Enable Pickaxe Drop Mod' must be true for this to be applied.");
 
             // any other drops possible using the HuntingSkill_Type
             // Feathers,Guck,LeatherScraps,WitheredBone
             HuntingApplyForItems = base.Config.Bind<String>("3. Baseconfigs: Hunting", "HuntingApplyForItems",
                 "Feathers,Guck,LeatherScraps,WitheredBone",
-                "NOT YET USED: List of items that might drop when applying the skill 'Hunting' in HuntingConfig to apply the skill on and increase drop rates to based on skill level. If an item is not in the list the skill will not be applied. 'Enable Hunting Skill' in the HuntingConfig must be true for this to be applied.");
+                "List of items that might drop when applying the skill 'Hunting' in HuntingConfig to apply the skill on and increase drop rates to based on skill level. If an item is not in the list the skill will not be applied. 'Enable Hunting Skill' in the HuntingConfig must be true for this to be applied.");
 
             //--
             Utilities.Log("Overhauls Patched!");
@@ -160,6 +166,10 @@ namespace MoreSkills.Config
             Utilities.Log("Overhauls UnPatched!");
             harmonyOverhauls.UnpatchSelf();
         }
+
+        // Log config
+
+        public static ConfigEntry<bool> EnableDetailedLogging;
 
         // Stats Bases
 

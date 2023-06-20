@@ -1,6 +1,10 @@
 New Changes by MacharaStormwing:
 --------------------------------
 
+Update 0.2.1.1:
+- implemented the use of configurable fields WoodCuttingApplyForItems, PickaxeApplyForItems and HuntingApplyForItems in Moreskills.OverhaulsConfig.cfg
+- added advanced logging for handling of drops which are configurable through config "Enable Detailed Overhauls Logging". Should remain false unless needed.
+
 Update 0.2.1:
 - update to support Valheim 0.216.9
 - various cleanups (logging more unified, refactoring)

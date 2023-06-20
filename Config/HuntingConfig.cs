@@ -5,15 +5,15 @@ using MoreSkills.UI;
 using MoreSkills.Utility;
 using Pipakin.SkillInjectorMod;
 using System;
-using UnityEngine;
 
 namespace MoreSkills.Config
 {
-    [BepInPlugin("MoreSkills.HuntingConfig", "MoreSkills: Hunting", "0.0.4")]
+    [BepInPlugin(Plugin_Name, "MoreSkills: Hunting", "0.0.4")]
     [BepInDependency("com.pipakin.SkillInjectorMod")]
-
     public class MoreSkills_HuntingConfig : BaseUnityPlugin
     {
+        public const String Plugin_Name = "MoreSkills.HuntingConfig";
+
         public void Awake()
         {
             Utilities.Log("Loading Hunting Skill...");

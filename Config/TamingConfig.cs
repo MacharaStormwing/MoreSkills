@@ -10,10 +10,12 @@ using UnityEngine;
 
 namespace MoreSkills.Config
 {
-    [BepInPlugin("MoreSkills.TamingConfig", "MoreSkills: Taming", "0.0.4")]
+    [BepInPlugin(Plugin_Name, "MoreSkills: Taming", "0.0.4")]
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class MoreSkills_TamingConfig : BaseUnityPlugin
     {
+        public const String Plugin_Name = "MoreSkills.TamingConfig";
+
         public void Awake()
         {
             Utilities.Log("Loading Taming Skill...");

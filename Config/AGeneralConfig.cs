@@ -3,15 +3,18 @@ using BepInEx.Configuration;
 using HarmonyLib;
 using MoreSkills.UI;
 using Pipakin.SkillInjectorMod;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MoreSkills.Config
 {
-    [BepInPlugin("MoreSkills.AGeneralConfig", "MoreSkills", "0.1.9.2")]
+    [BepInPlugin(Plugin_Name, "MoreSkills", "0.1.9.2")]
     [BepInDependency("com.pipakin.SkillInjectorMod", BepInDependency.DependencyFlags.HardDependency)]
     public class MoreSkills_Config : BaseUnityPlugin
     {
+        public const String Plugin_Name = "MoreSkills.AGeneralConfig";
+
         public void Awake()
         {
             /*All Drops Configs

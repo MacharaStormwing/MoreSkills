@@ -4,8 +4,8 @@
     {
         public const string Name = "MoreSkills";
 
-        public const string Guid = "com.guiriguy.moreskills";
+        public const string Guid = "com.macharastormwing.moreskills";
 
-        public const string Version = "0.20.1";
+        public const string Version = "0.2.1.1";
     }
 }

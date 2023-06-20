@@ -9,8 +9,40 @@ namespace MoreSkills.ModSkills
 {
     class MoreSkills_DropsRocksWood
     {
-        private static bool useNewDropMethod = false;
+        // new cleaner drop method that uses configurable item names that are to be handled: use it if the value is true
+        private static bool useNewDropMethod = true;
+
         private static char[] commaSeparator = new[] { ',' };
+
+        private static float getAppliedWoodLootFactor(float appliedWoodLootFactor)
+        {
+            if (appliedWoodLootFactor == 0)
+            {
+                float woodCuttingSkillFactor = MoreSkills_Instances._player.GetSkillFactor(Skills.SkillType.WoodCutting);
+                appliedWoodLootFactor = ((MoreSkills_OverhaulsConfig.WoodCuttingMultiplier.Value - 1) * woodCuttingSkillFactor);
+            }
+            return appliedWoodLootFactor;
+        }
+
+        private static float getAppliedStoneLootFactor(float appliedStoneLootFactor)
+        {
+            if (appliedStoneLootFactor == 0)
+            {
+                float pickaxesSkillFactor = MoreSkills_Instances._player.GetSkillFactor(Skills.SkillType.Pickaxes);
+                appliedStoneLootFactor = ((MoreSkills_OverhaulsConfig.PickaxeMultiplier.Value - 1) * pickaxesSkillFactor);
+            }
+            return appliedStoneLootFactor;
+        }
+
+        private static float getAppliedHuntingLootFactor(float appliedHuntingLootFactor)
+        {
+            if (appliedHuntingLootFactor == 0)
+            {
+                float huntingSkillFactor = MoreSkills_Instances._player.GetSkillFactor((Skills.SkillType)MoreSkills_HuntingConfig.HuntingSkill_Type);
+                appliedHuntingLootFactor = ((MoreSkills_HuntingConfig.HuntingDropMultiplier.Value - 1) * huntingSkillFactor);
+            }
+            return appliedHuntingLootFactor;
+        }
 
 
         [HarmonyPatch(typeof(DropTable), "GetDropList", new Type[] { typeof(int) })]
@@ -19,7 +51,7 @@ namespace MoreSkills.ModSkills
 
             public static void Postfix(ref DropTable __instance, ref List<GameObject> __result, int amount)
             {
-                if (MoreSkills_Instances._player != null)
+                if (MoreSkills_Instances._player != null && __result != null && __result.Count > 0)
                 {
                     if (MoreSkills_OverhaulsConfig.EnableWoodCuttingDropMod.Value || MoreSkills_OverhaulsConfig.EnablePickaxeDropMod.Value || MoreSkills_HuntingConfig.EnableHuntingSkill.Value)
                     {
@@ -28,7 +60,16 @@ namespace MoreSkills.ModSkills
                             || MoreSkills_Instances._TBDAttacker == MoreSkills_Instances._player.GetZDOID()
                             || MoreSkills_Instances._TLDAttacker == MoreSkills_Instances._player.GetZDOID())
                         {
-                            List<GameObject> Drops = new List<GameObject>();
+                            bool advancedLogging = MoreSkills_CraftingConfig.EnableDetailedLogging.Value;
+
+                            if (advancedLogging)
+                                Utilities.Log("Starting DropsRocksWood.Postfix with " + __result.Count + " drops");
+
+                            List<GameObject> Drops = new List<GameObject>();                            
+
+                            float appliedWoodLootFactor = 0;
+                            float appliedStoneLootFactor = 0;
+                            float appliedHuntingLootFactor = 0;
 
                             if (useNewDropMethod)
                             {
@@ -39,21 +80,35 @@ namespace MoreSkills.ModSkills
                                 string[] pickaxeDroppedItemNames = MoreSkills_OverhaulsConfig.PickaxeApplyForItems.Value.Split(commaSeparator, StringSplitOptions.RemoveEmptyEntries);
                                 string[] huntingDroppedItemNames = MoreSkills_OverhaulsConfig.HuntingApplyForItems.Value.Split(commaSeparator, StringSplitOptions.RemoveEmptyEntries);
 
-                                MapTable x = new MapTable();
+                                
                                 Dictionary<string, DropObjectContainer> dropObjects = new Dictionary<string, DropObjectContainer>();
                                 foreach (string itemName in woodcuttingDroppedItemNames) {
-                                    dropObjects.Add(itemName, new DropObjectContainer(0, DropObjectAssocinatedSkillType.Woodworking, null));
+                                    if (!dropObjects.ContainsKey(itemName))
+                                        dropObjects.Add(itemName, new DropObjectContainer(0, DropObjectAssocinatedSkillType.Woodworking, null));
+                                    else
+                                        Utilities.LogWarning("Key '" + itemName + "' already exists in '"
+                                            + MoreSkills_OverhaulsConfig.WoodCuttingApplyForItems.Definition.Key + "' found in config '"
+                                            + MoreSkills_OverhaulsConfig.Plugin_Name + ".cfg'. Did you configure it twice?");
                                 }
-                                foreach (string itemName in woodcuttingDroppedItemNames)
+                                foreach (string itemName in pickaxeDroppedItemNames)
                                 {
-                                    dropObjects.Add(itemName, new DropObjectContainer(0, DropObjectAssocinatedSkillType.Pickaxe, null));
+                                    if (!dropObjects.ContainsKey(itemName))
+                                        dropObjects.Add(itemName, new DropObjectContainer(0, DropObjectAssocinatedSkillType.Pickaxe, null));
+                                    else
+                                        Utilities.LogWarning("Key '" + itemName + "' already exists in '"
+                                            + MoreSkills_OverhaulsConfig.PickaxeApplyForItems.Definition.Key + "' found in config '"
+                                            + MoreSkills_OverhaulsConfig.Plugin_Name + ".cfg'. Did you configure it twice?");
                                 }
-                                foreach (string itemName in woodcuttingDroppedItemNames)
+                                foreach (string itemName in huntingDroppedItemNames)
                                 {
-                                    dropObjects.Add(itemName, new DropObjectContainer(0, DropObjectAssocinatedSkillType.Hunting, null));
+                                    if (!dropObjects.ContainsKey(itemName))
+                                        dropObjects.Add(itemName, new DropObjectContainer(0, DropObjectAssocinatedSkillType.Hunting, null));
+                                    else
+                                        Utilities.LogWarning("Key '" + itemName + "' already exists in '"
+                                            + MoreSkills_OverhaulsConfig.HuntingApplyForItems.Definition.Key + "' found in config '"
+                                            + MoreSkills_OverhaulsConfig.Plugin_Name + ".cfg'. Did you configure it twice?");
                                 }
 
-                                DropObjectContainer matchingDropContainer;
                                 foreach (GameObject droppedObject in __result)
                                 {
                                     if (droppedObject == null)
@@ -61,31 +116,82 @@ namespace MoreSkills.ModSkills
                                         continue;
                                     }
 
-                                    if (dropObjects.TryGetValue(droppedObject.name, out matchingDropContainer))
+                                    // register all dropped items into our Dictionary of known drop types
+                                    if (dropObjects.TryGetValue(droppedObject.name, out var matchingDropContainer))
                                     {
                                         if (matchingDropContainer.DropItem == null)
                                         {
                                             matchingDropContainer.DropItem = droppedObject;
                                         }
                                         matchingDropContainer.NumItems++;
-                                    } else
+                                        // for some reason this is needed so the changes are stored in the Dictionary. Why?
+                                        dropObjects[droppedObject.name] = matchingDropContainer;
+
+                                        if (advancedLogging)
+                                            Utilities.Log("Added drop '" + droppedObject.name + "' to dropObjects map (skillType="
+                                            + matchingDropContainer.SkillType + ", NumItems=" + matchingDropContainer.NumItems  + ")");
+                                    }
+                                    else
                                     {
                                         Utilities.LogWarning("Report Missing/Unknown Drop: '" + droppedObject.name + "'");
                                         Drops.Add(droppedObject);
                                     }
                                 }
 
-                                foreach (DropObjectContainer dropContainer in dropObjects.Values)
+                                appliedWoodLootFactor = getAppliedWoodLootFactor(appliedWoodLootFactor);
+                                appliedStoneLootFactor = getAppliedStoneLootFactor(appliedStoneLootFactor);
+                                appliedHuntingLootFactor = getAppliedHuntingLootFactor(appliedHuntingLootFactor);
+
+                                foreach (String itemName in dropObjects.Keys)
                                 {
-                                    if (dropContainer.NumItems > 0)
+                                    DropObjectContainer dropContainer;
+                                    if (dropObjects.TryGetValue(itemName, out dropContainer) &&
+                                        dropContainer.NumItems > 0 && dropContainer.DropItem != null)
                                     {
-                                        // TODO: implement! do not set useNewDropMethod to true until this is done
+                                        // for each item check what type of skill it associates to,
+                                        // and thus what the applied lootfactor should be
+                                        // then caltulated number of items to be dropped (number of existing items multiplied by loot factor
+                                        // and add necessary number of items to the drop
+                                        int nrOfItems = 0;
+                                        switch (dropContainer.SkillType)
+                                        {
+                                            case DropObjectAssocinatedSkillType.Woodworking:
+                                                nrOfItems = MoreSkills_OverhaulsConfig.EnableWoodCuttingDropMod.Value ?
+                                                    (int)(dropContainer.NumItems + (dropContainer.NumItems * appliedWoodLootFactor)) : dropContainer.NumItems;
+                                                break;
+                                            case DropObjectAssocinatedSkillType.Pickaxe:
+                                                nrOfItems = MoreSkills_OverhaulsConfig.EnablePickaxeDropMod.Value ?
+                                                    (int)(dropContainer.NumItems + (dropContainer.NumItems * appliedStoneLootFactor)) : dropContainer.NumItems;
+                                                break;
+                                            case DropObjectAssocinatedSkillType.Hunting:
+                                                nrOfItems = MoreSkills_HuntingConfig.EnableHuntingSkill.Value ?
+                                                    (int)(dropContainer.NumItems + (dropContainer.NumItems * appliedHuntingLootFactor)) : dropContainer.NumItems;
+                                                break;
+                                            default:
+                                                Utilities.LogWarning("Unknown dropContainer Skilltype '" + dropContainer.SkillType + "'");
+                                                break;
+                                        }
+
+                                        if (advancedLogging)
+                                            Utilities.Log("Dropping " + nrOfItems + " " + dropContainer.DropItem.name + " (original drops: " + dropContainer.NumItems + ")");
+
+                                        for (int i = 0; i < nrOfItems; i++)
+                                        {
+                                            Drops.Add(dropContainer.DropItem);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (advancedLogging)
+                                            Utilities.Log("Ignoring DropItem type " + itemName + ":"
+                                            + (dropContainer.NumItems == 0 ? " NumItems=0" : "")
+                                            + (dropContainer.DropItem == null ? " DropItem=null" : ""));
                                     }
                                 }
                             }
                             else
                             {
-                                // old implementation for security (but with new added drop types) by 
+                                // old implementation for security (but with new added drop types) by guiriguy
                                 //WoodCutting
                                 float cBeechSeed = 0;
                                 GameObject objectBeechSeed = null;
@@ -295,8 +401,7 @@ namespace MoreSkills.ModSkills
                                 //Wood
                                 if (MoreSkills_OverhaulsConfig.EnableWoodCuttingDropMod.Value)
                                 {
-                                    float woodCuttingSkillFactor = MoreSkills_Instances._player.GetSkillFactor(Skills.SkillType.WoodCutting);
-                                    float appliedWoodLootFactor = ((MoreSkills_OverhaulsConfig.WoodCuttingMultiplier.Value - 1) * woodCuttingSkillFactor);
+                                    appliedWoodLootFactor = getAppliedWoodLootFactor(appliedWoodLootFactor);
 
                                     for (int i = 0; i < (int)(cBeechSeed + (cBeechSeed * appliedWoodLootFactor)); i++)
                                     {
@@ -394,8 +499,7 @@ namespace MoreSkills.ModSkills
                                 //Minerals
                                 if (MoreSkills_OverhaulsConfig.EnablePickaxeDropMod.Value)
                                 {
-                                    float pickaxesSkillFactor = MoreSkills_Instances._player.GetSkillFactor(Skills.SkillType.Pickaxes);
-                                    float appliedStoneLootFactor = ((MoreSkills_OverhaulsConfig.PickaxeMultiplier.Value - 1) * pickaxesSkillFactor);
+                                    appliedStoneLootFactor = getAppliedStoneLootFactor(appliedStoneLootFactor);
 
                                     for (int i = 0; i < (int)(cChitin + (cChitin * appliedStoneLootFactor)); i++)
                                     {
@@ -461,8 +565,7 @@ namespace MoreSkills.ModSkills
                                 //Others
                                 if (MoreSkills_HuntingConfig.EnableHuntingSkill.Value)
                                 {
-                                    float huntingSkillFactor = MoreSkills_Instances._player.GetSkillFactor((Skills.SkillType)MoreSkills_HuntingConfig.HuntingSkill_Type);
-                                    float appliedHuntingLootFactor = ((MoreSkills_HuntingConfig.HuntingDropMultiplier.Value - 1) * huntingSkillFactor);
+                                    appliedStoneLootFactor = getAppliedHuntingLootFactor(appliedWoodLootFactor);
 
                                     for (int i = 0; i < (int)(cFeathers + (cFeathers * appliedHuntingLootFactor)); i++)
                                     {
@@ -510,7 +613,6 @@ namespace MoreSkills.ModSkills
 
             private struct DropObjectContainer
             {
-
                 public int NumItems { set; get; }
 
                 public DropObjectAssocinatedSkillType SkillType { set; get; }
