@@ -1,6 +1,9 @@
 New Changes by MacharaStormwing:
 --------------------------------
 
+Update 0.2.4 (June 22 2023):
+- small fix always logging a warning concerning IgnoreDropItemNames even when it should not be
+
 Update 0.2.3 (June 22 2023):
 - Added config fields to "MoreSkills.OverhaulsConfig.cfg:
   * IgnoreDropItemNames: List of known item drops (through WoodCutting, Pickaxes or other Misc means) that should not get a skill applied. This also avoids the warning of unknown drops (unknown drops do not get the skill applied ither).
