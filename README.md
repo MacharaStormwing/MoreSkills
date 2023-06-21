@@ -1,11 +1,17 @@
 New Changes by MacharaStormwing:
 --------------------------------
 
-Update 0.2.1.1:
+Update 0.2.3 (June 22 2023):
+- Added config fields to "MoreSkills.OverhaulsConfig.cfg:
+  * IgnoreDropItemNames: List of known item drops (through WoodCutting, Pickaxes or other Misc means) that should not get a skill applied. This also avoids the warning of unknown drops (unknown drops do not get the skill applied ither).
+  * DontDropItemNames: List of known item drops (through WoodCutting, Pickaxes or other Misc means) that should not be dropped at all.
+
+Update 0.2.2 (June 20 2023):
+- Changed vesioning from 4 to 3 digits to conform with Thunderstore
 - implemented the use of configurable fields WoodCuttingApplyForItems, PickaxeApplyForItems and HuntingApplyForItems in Moreskills.OverhaulsConfig.cfg
 - added advanced logging for handling of drops which are configurable through config "Enable Detailed Overhauls Logging". Should remain false unless needed.
 
-Update 0.2.1:
+Update 0.2.1 (June 16 2023):
 - update to support Valheim 0.216.9
 - various cleanups (logging more unified, refactoring)
 

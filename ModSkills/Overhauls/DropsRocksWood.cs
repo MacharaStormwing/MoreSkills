@@ -60,7 +60,7 @@ namespace MoreSkills.ModSkills
                             || MoreSkills_Instances._TBDAttacker == MoreSkills_Instances._player.GetZDOID()
                             || MoreSkills_Instances._TLDAttacker == MoreSkills_Instances._player.GetZDOID())
                         {
-                            bool advancedLogging = MoreSkills_CraftingConfig.EnableDetailedLogging.Value;
+                            bool advancedLogging = MoreSkills_OverhaulsConfig.EnableDetailedLogging.Value;
 
                             if (advancedLogging)
                                 Utilities.Log("Starting DropsRocksWood.Postfix with " + __result.Count + " drops");
@@ -79,8 +79,13 @@ namespace MoreSkills.ModSkills
                                 string[] woodcuttingDroppedItemNames = MoreSkills_OverhaulsConfig.WoodCuttingApplyForItems.Value.Split(commaSeparator, StringSplitOptions.RemoveEmptyEntries);
                                 string[] pickaxeDroppedItemNames = MoreSkills_OverhaulsConfig.PickaxeApplyForItems.Value.Split(commaSeparator, StringSplitOptions.RemoveEmptyEntries);
                                 string[] huntingDroppedItemNames = MoreSkills_OverhaulsConfig.HuntingApplyForItems.Value.Split(commaSeparator, StringSplitOptions.RemoveEmptyEntries);
+                               
+                                string[] IgnoreDropItemNames = MoreSkills_OverhaulsConfig.IgnoreDropItemNames.Value.Split(commaSeparator, StringSplitOptions.RemoveEmptyEntries);
+                                HashSet<string> IgnoreDropItemNamesSet = new HashSet<string>(IgnoreDropItemNames);
 
-                                
+                                string[] DontDropItemNames = MoreSkills_OverhaulsConfig.DontDropItemNames.Value.Split(commaSeparator, StringSplitOptions.RemoveEmptyEntries);
+                                HashSet<string> DontDropItemNamesSet = new HashSet<string>(DontDropItemNames);
+
                                 Dictionary<string, DropObjectContainer> dropObjects = new Dictionary<string, DropObjectContainer>();
                                 foreach (string itemName in woodcuttingDroppedItemNames) {
                                     if (!dropObjects.ContainsKey(itemName))
@@ -125,7 +130,8 @@ namespace MoreSkills.ModSkills
                                         }
                                         matchingDropContainer.NumItems++;
                                         // for some reason this is needed so the changes are stored in the Dictionary. Why?
-                                        dropObjects[droppedObject.name] = matchingDropContainer;
+                                        // solution: changing DropObjectContainer from struct to class
+                                        //dropObjects[droppedObject.name] = matchingDropContainer;
 
                                         if (advancedLogging)
                                             Utilities.Log("Added drop '" + droppedObject.name + "' to dropObjects map (skillType="
@@ -133,8 +139,18 @@ namespace MoreSkills.ModSkills
                                     }
                                     else
                                     {
-                                        Utilities.LogWarning("Report Missing/Unknown Drop: '" + droppedObject.name + "'");
-                                        Drops.Add(droppedObject);
+                                        if (DontDropItemNamesSet.Contains(droppedObject.name)) {
+                                            // do not drop item at all, such as with crystal stones of the Jewelcrafting mod
+                                            if (advancedLogging)
+                                                Utilities.LogWarning("Not dropping Drop '" + droppedObject.name + "' because it was found in DontDropItemNames.");
+                                        } else
+                                        {
+                                            //if (!IgnoreDropItemNamesSet.Contains(droppedObject.name))
+                                                Utilities.LogWarning("Unknown Drop '" + droppedObject.name
+                                                    + "'. Ignoring skill and just dropping item.");
+
+                                            Drops.Add(droppedObject);
+                                        }
                                     }
                                 }
 
@@ -182,10 +198,10 @@ namespace MoreSkills.ModSkills
                                     }
                                     else
                                     {
-                                        if (advancedLogging)
+                                        /*if (advancedLogging)
                                             Utilities.Log("Ignoring DropItem type " + itemName + ":"
                                             + (dropContainer.NumItems == 0 ? " NumItems=0" : "")
-                                            + (dropContainer.DropItem == null ? " DropItem=null" : ""));
+                                            + (dropContainer.DropItem == null ? " DropItem=null" : ""));*/
                                     }
                                 }
                             }
@@ -606,12 +622,22 @@ namespace MoreSkills.ModSkills
                             }
 
                             __result = Drops;
+
+                            if (advancedLogging)
+                            {
+                                String dropStr = "";
+                                foreach (GameObject drop in __result)
+                                {
+                                    dropStr += "'" + drop.name + "',";
+                                }
+                                Utilities.Log("Returning Drops: " + dropStr);
+                            }
                         }
                     }
                 }
             }
 
-            private struct DropObjectContainer
+            private class DropObjectContainer
             {
                 public int NumItems { set; get; }
 

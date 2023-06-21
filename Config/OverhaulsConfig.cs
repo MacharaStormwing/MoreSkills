@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace MoreSkills.Config
 {
-    [BepInPlugin(Plugin_Name, "MoreSkills: Overhauls", "0.0.8")]
+    [BepInPlugin(Plugin_Name, "MoreSkills: Overhauls", "0.0.9")]
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class MoreSkills_OverhaulsConfig : BaseUnityPlugin
     {
@@ -36,7 +36,7 @@ namespace MoreSkills.Config
             //Jumping
             EnableJumpMod = base.Config.Bind<bool>("1. Enablers: Jump", "Enable Jump Mods", true, "Enables or disables the Jumping Modifications");
             //FallDamage
-            EnableDecreaseFallDamageMod = base.Config.Bind<bool>("1. Enablers: Jump", "Enable Fall Damage Mods", true, "Enables or disables the Jumping Fall Damage Modifications");
+            EnableDecreaseFallDamageMod = base.Config.Bind<bool>("1. Enablers: Jump", "Enable Fall Damage Mods", false, "Enables or disables the Jumping Fall Damage Modifications");
             //RollonFall
             EnableRollOnFall = base.Config.Bind<bool>("1. Enablers: Jump", "Enable Roll on Fall Mod", true, "Enables or disables the Roll on Fall Modification");
             //HigherJump
@@ -57,13 +57,13 @@ namespace MoreSkills.Config
 
             //Jumping
             //DamageDecrease
-            FallDamageDecrease = base.Config.Bind<float>("2. Multipliers: Jump", "Decrease Multiplier based on Jumping Skill", 2.0f, "Decreases the Damage Recieved by Falling from a High Altitude (4 meters)");
+            FallDamageDecrease = base.Config.Bind<float>("2. Multipliers: Jump", "Decrease Multiplier based on Jumping Skill", 3.0f, "Decreases the Damage Recieved by Falling from a High Altitude (4 meters)");
             //DamageIncrease
-            MaxFallDamageIncrease = base.Config.Bind<float>("2. Multipliers: Jump", "Increase Multiplier Per Meter over Max Fall Altitude Skill", 2.0f, "Increses the Damage Recieved per meter exceded from Max Falling Altitude");
+            MaxFallDamageIncrease = base.Config.Bind<float>("2. Multipliers: Jump", "Increase Multiplier Per Meter over Max Fall Altitude Skill", 3.0f, "Increses the Damage Recieved per meter exceded from Max Falling Altitude");
             //Base Configs
             //Sneak
             BaseCrouchSpeed = base.Config.Bind<float>("3. BaseConfigs: Sneak", "Base Crouch Speed", 2f, "Change the base Crouch Speed. (Valheim Default is 2)");
-            BaseMaxCrouchSpeed = base.Config.Bind<float>("3. BaseConfigs: Sneak", "Base Max Crouch Speed", 4f, "Change the base Max Crouch Speed at level 100. (Valheim Default is 2)");
+            BaseMaxCrouchSpeed = base.Config.Bind<float>("3. BaseConfigs: Sneak", "Base Max Crouch Speed", 3f, "Change the base Max Crouch Speed at level 100. (Valheim Default is 2)");
             //Swim
             //Speed
             BaseSwimSpeed = base.Config.Bind<float>("3. BaseConfigs: Swim", "Base Swim Speed", 2f, "Change the base Swim Speed (Valheim Defailt is 2)");
@@ -71,7 +71,7 @@ namespace MoreSkills.Config
             //Jump
             //Heights and Key
             BaseJumpForce = base.Config.Bind<float>("3. BaseConfigs: Jump", "Base Jump Force", 8f, "Change the base Jump Force (Valheim Defailt is 8)");
-            BaseMaxJumpForce = base.Config.Bind<float>("3. BaseConfigs: Jump", "Base Max Jump Force", 12f, "Change the base Max Jump Force at level 100. (Valheim Default is 8)");
+            BaseMaxJumpForce = base.Config.Bind<float>("3. BaseConfigs: Jump", "Base Max Jump Force", 10f, "Change the base Max Jump Force at level 100. (Valheim Default is 8)");
             HigherJumpKey = base.Config.Bind<KeyCode>("3. BaseConfigs: Jump", "Base Higher Jump Key Force", KeyCode.LeftShift, "Change the button to hold when wanted a Higher Jump. Keys: https://docs.unity3d.com/Manual/class-InputManager.html");
             BaseRollAltitude = base.Config.Bind<float>("3. BaseConfigs: Jump", "Base Roll Altitude", 4f, "Change the base altitude you need to reach for the Character roll on fall, not recieving any damage.");
             BaseMaxRollAltitude = base.Config.Bind<float>("3. BaseConfigs: Jump", "Base Max Roll Altitude", 8f, "Change the base Max altitude at jump level 100, at which the Character will roll on fall and not recieve any damage.");
@@ -82,7 +82,7 @@ namespace MoreSkills.Config
             // types of drops recognized when cutting wood using the WoodCutting skill with an axe
             // BeechSeeds,BirchCone,OakSeeds,Acorn,ElderBark,FineWood,FirCone,PineCone,Resin,RoundLog,Wood
             WoodCuttingApplyForItems = base.Config.Bind<String>("3. Baseconfigs: Woodcutting", "WoodCuttingApplyForItems",
-                "BeechSeeds,BirchCone,OakSeeds,Acorn,ElderBark,FineWood,FirCone,PineCone,Resin,RoundLog,Wood,Uncut_Black_Stone,Uncut_Green_Stone,Uncut_Purple_Stone,Uncut_Blue_Stone,Uncut_Yellow_Stone,Uncut_Red_Stone,Uncut_Orange_Stone",
+                "BeechSeeds,BirchCone,OakSeeds,Acorn,ElderBark,FineWood,FirCone,PineCone,Resin,RoundLog,Wood",
                 "List of items that might drop when applying the skill 'WoodCutting' to apply the skill on and increase drop rates to based on skill level. If an item is not in the list the skill will not be applied. 'Enable WoodCutting Drop Mod' must be true for this to be applied.");
 
             // types of drops recognized when mining ore, stone or other items using the Pickaxes skill with a pickaxe
@@ -96,6 +96,14 @@ namespace MoreSkills.Config
             HuntingApplyForItems = base.Config.Bind<String>("3. Baseconfigs: Hunting", "HuntingApplyForItems",
                 "Feathers,Guck,LeatherScraps,WitheredBone",
                 "List of items that might drop when applying the skill 'Hunting' in HuntingConfig to apply the skill on and increase drop rates to based on skill level. If an item is not in the list the skill will not be applied. 'Enable Hunting Skill' in the HuntingConfig must be true for this to be applied.");
+
+            IgnoreDropItemNames = base.Config.Bind<String>("3. Baseconfigs: Ignore Item Drops", "IgnoreDropItemNames",
+                "Uncut_Black_Stone,Uncut_Green_Stone,Uncut_Purple_Stone,Uncut_Blue_Stone,Uncut_Yellow_Stone,Uncut_Red_Stone,Uncut_Orange_Stone",
+                "List of known item drops (through WoodCutting, Pickaxes or other Misc means) that should not get a skill applied. This also avoids the warning of unknown drops (unknown drops do not get the skill applied ither).");
+
+            DontDropItemNames = base.Config.Bind<String>("3. Baseconfigs: Ignore Item Drops", "DontDropItemNames",
+                "",
+                "List of known item drops (through WoodCutting, Pickaxes or other Misc means) that should not be dropped at all.");
 
             //--
             Utilities.Log("Overhauls Patched!");
@@ -241,6 +249,10 @@ namespace MoreSkills.Config
         public static ConfigEntry<String> PickaxeApplyForItems;
 
         public static ConfigEntry<String> HuntingApplyForItems;
+
+        public static ConfigEntry<String> IgnoreDropItemNames;
+
+        public static ConfigEntry<String> DontDropItemNames;
 
     }
 }

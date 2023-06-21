@@ -1,6 +1,6 @@
 {
     "name": "MoreSkills",
-    "version_number": "0.2.1.1",
+    "version_number": "0.2.3",
     "website_url": "https://github.com/MacharaStormwing/MoreSkills",
     "description": "Adds new skills to the game and Overhauls others. All Configurable and can Disable one by one if wanted. by MacharaStormwing",
     "dependencies": [
