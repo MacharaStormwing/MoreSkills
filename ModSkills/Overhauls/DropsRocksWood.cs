@@ -145,7 +145,7 @@ namespace MoreSkills.ModSkills
                                                 Utilities.LogWarning("Not dropping Drop '" + droppedObject.name + "' because it was found in DontDropItemNames.");
                                         } else
                                         {
-                                            //if (!IgnoreDropItemNamesSet.Contains(droppedObject.name))
+                                            if (!IgnoreDropItemNamesSet.Contains(droppedObject.name))
                                                 Utilities.LogWarning("Unknown Drop '" + droppedObject.name
                                                     + "'. Ignoring skill and just dropping item.");
 
