@@ -1,17 +1,21 @@
 ﻿using HarmonyLib;
 using MoreSkills.Config;
 using MoreSkills.Utility;
-using System;
-using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 namespace MoreSkills.ModSkills.Overhauls
 {
     class MoreSkills_JumpMod
     {
-        [HarmonyPatch(typeof(Player), "UpdateStats")]
+        [HarmonyPatch]
         public static class TestJump
         {
+            public static MethodBase TargetMethod()
+            {
+                return AccessTools.DeclaredMethod(typeof(Player), nameof(Player.UpdateStats), new System.Type[0]);
+            }
+
             public static void Postfix(ref Character __instance)
             {
                 if (MoreSkills_Instances._player != null)
@@ -74,7 +78,7 @@ namespace MoreSkills.ModSkills.Overhauls
             }
         }
 
-        [HarmonyPatch(typeof(Character), "Damage")]
+        [HarmonyPatch(typeof(Character), nameof(Character.Damage))]
         public static class TestDamage
         {
             public static void Prefix(ref Character __instance, ref HitData hit)

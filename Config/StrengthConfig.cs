@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace MoreSkills.Config
 {
-    [BepInPlugin(Plugin_Name, "MoreSkills: Strength", "0.0.3")]
+    [BepInPlugin(Plugin_Name, "MoreSkills: Strength", "0.0.4")]
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class MoreSkills_StrengthConfig : BaseUnityPlugin
     {
@@ -29,13 +29,13 @@ namespace MoreSkills.Config
             //Multipliers
             //Strength
             //Skill
-            StrengthSkillIncreaseMultiplier = base.Config.Bind<float>("Multipliers", "Strength Skill Increase Multiplier", 1.0f, "Change the skill increase Multiplier, based on the Weight you are carrying 1/400000 when Encumbred, 1/800000 when HalfWeight and Running and 1/1200000 when Halfweight and Moving.");
+            StrengthSkillIncreaseMultiplier = base.Config.Bind<float>("Multipliers", "Strength Skill Increase Multiplier", 0.5f, "Change the skill increase Multiplier, based on the Weight you are carrying 1/400000 when Encumbred, 1/800000 when HalfWeight and Running and 1/1200000 when Halfweight and Moving.");
             //Stamina 
             StrengthStaminaMultiplier = base.Config.Bind<float>("Multipliers", "Strength Stamina Multiplier", 1.0f, "Change the stamina increase Multiplier, that you recieve when not moving Encumbred");
             //Base Configs
             //Strength
             BaseWeight = base.Config.Bind<float>("BaseConfigs", "Base Weight", 300f, "Change the base Weight. (Valheim Default is 300)");
-            BaseMaxWeight = base.Config.Bind<float>("BaseConfigs", "Base Max Weight", 600f, "Change the total Weight when Strength is at level 100. (Valheim Default is 300)");
+            BaseMaxWeight = base.Config.Bind<float>("BaseConfigs", "Base Max Weight", 450f, "Change the total Weight when Strength is at level 100. (Valheim Default is 300)");
 
             //Inject.Strength
             if (EnableStrengthMod.Value)

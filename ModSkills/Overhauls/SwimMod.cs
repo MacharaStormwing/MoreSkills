@@ -2,14 +2,20 @@
 using MoreSkills.Config;
 using MoreSkills.Utility;
 using System;
+using System.Reflection;
 
 namespace MoreSkills.ModSkills
 {
     class MoreSkills_SwimMod
     {
-        [HarmonyPatch(typeof(Player), "UpdateStats")]
+        [HarmonyPatch]
         public static class Swim_SwimMod
         {
+            public static MethodBase TargetMethod()
+            {
+                return AccessTools.DeclaredMethod(typeof(Player), nameof(Player.UpdateStats), new System.Type[0]);
+            }
+
             public static void Postfix()
             {
                 if (MoreSkills_OverhaulsConfig.EnableSwimMod.Value)

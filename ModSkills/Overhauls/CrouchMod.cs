@@ -2,15 +2,20 @@
 using MoreSkills.Config;
 using MoreSkills.Utility;
 using System;
-
+using System.Reflection;
 
 namespace MoreSkills.ModSkills
 {
     class MoreSkills_CrouchMod
     {
-        [HarmonyPatch(typeof(Player), "UpdateStats")]
+        [HarmonyPatch]
         public static class Sneak_CrouchSpeedMod
         {
+            public static MethodBase TargetMethod()
+            {
+                return AccessTools.DeclaredMethod(typeof(Player), nameof(Player.UpdateStats), new System.Type[0]);
+            }
+
             public static void Postfix()
             {
                 if (MoreSkills_OverhaulsConfig.EnableCrouchMod.Value)

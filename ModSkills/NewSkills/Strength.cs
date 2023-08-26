@@ -1,15 +1,21 @@
 ﻿using HarmonyLib;
 using MoreSkills.Config;
 using MoreSkills.Utility;
+using System.Reflection;
 using UnityEngine;
 
 namespace MoreSkills.ModSkills
 {
     class MoreSkills_Strength
     {
-        [HarmonyPatch(typeof(Player), "UpdateStats")]
+        [HarmonyPatch]
         public static class RaiseSkill_Strength
         {
+            public static MethodBase TargetMethod()
+            {
+                return AccessTools.DeclaredMethod(typeof(Player), nameof(Player.UpdateStats), new System.Type[0]);
+            }
+
             public static void Postfix()
             {
                 if (MoreSkills_Instances._player != null)

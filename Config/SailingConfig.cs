@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace MoreSkills.Config
 {
-    [BepInPlugin(Plugin_Name, "MoreSkills: Sailing", "0.0.1")]
+    [BepInPlugin(Plugin_Name, "MoreSkills: Sailing", "0.0.2")]
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class MoreSkills_SailingConfig : BaseUnityPlugin
     {
@@ -28,7 +28,7 @@ namespace MoreSkills.Config
             EnableShipCrew = base.Config.Bind<bool>("Enablers", "Enable Ship Crew Mod", true, "Enables or disable the speed affect per player in the Ship");
             //Multipliers
             //Sailing
-            SailingSkillIncreaseMultiplier = base.Config.Bind<float>("Multipliers", "Multiply the Sailing Skill Increase", 1.0f, "The Skill Increase is bases in the Speed of the Ship 1/2000. CrewMates sitiing in the ship 1/4000 and Crewmates standing 1/8000");
+            SailingSkillIncreaseMultiplier = base.Config.Bind<float>("Multipliers", "Multiply the Sailing Skill Increase", 1.5f, "The Skill Increase is bases in the Speed of the Ship 1/2000. CrewMates sitiing in the ship 1/4000 and Crewmates standing 1/8000");
             //Base Configs
             //Sailing
             BaseBForce = base.Config.Bind<float>("BaseConfigs", "Base BackwardForce", 0.1f, "Changes the force when using the rudder, the higher the faster is the rudder");

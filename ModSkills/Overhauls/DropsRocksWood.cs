@@ -45,7 +45,7 @@ namespace MoreSkills.ModSkills
         }
 
 
-        [HarmonyPatch(typeof(DropTable), "GetDropList", new Type[] { typeof(int) })]
+        [HarmonyPatch(typeof(DropTable), nameof(DropTable.GetDropList), new Type[] { typeof(int) })]
         public static class DropTable_DropsRocksWood
         {
 
@@ -663,7 +663,7 @@ namespace MoreSkills.ModSkills
 
         //Old version
 
-        /*[HarmonyPatch(typeof(MineRock5), "Damage")]
+        /*[HarmonyPatch(typeof(MineRock5), nameof(MineRock5.Damage))]
         public static class Pickaxe_DropMod
         {
             public static void Postfix(MineRock5 __instance, HitData hit)

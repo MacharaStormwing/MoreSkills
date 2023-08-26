@@ -1,10 +1,12 @@
 ﻿using System.IO;
 using UnityEngine;
 using HarmonyLib;
+using System.Dynamic;
+using System;
 
 namespace MoreSkills.Utility
 {
-    static class Helper
+    public static class Helper
     {
         public static Texture2D LoadPng(Stream fileStream)
         {
@@ -42,38 +44,61 @@ namespace MoreSkills.Utility
             public ZDOID TamerID { get; }
             public float TameTime { get; }
             public float EatTime { get; }
-            public float Master { get; }
-            public float Tamer { get; }
-            public float Unlock { get; }
+            public float MasterLevel { get; }
+            public float TamerLevel { get; }
+            public float UnlockLevel { get; }
 
-            public TamingSaves(string creaturezdoid, ZDOID tamerid, float tametime, float eattime, float master, float tamer, float unlock)
+            public TamingSaves(string creatureZDOID, ZDOID tamerid, float tametime, float eattime, float unlockLevel, float tamerLevel, float masterLevel)
             {
-                CreatureZDOID = creaturezdoid;
+                CreatureZDOID = creatureZDOID;
                 TamerID = tamerid;
                 TameTime = tametime;
                 EatTime = eattime;
-                Master = master;
-                Tamer = tamer;
-                Unlock = unlock;
+                UnlockLevel = unlockLevel;
+                TamerLevel = tamerLevel;
+                MasterLevel = masterLevel;
             }
         }
         public struct TamingLevels
         {
-            public string Creature { get; }
-            public float Master { get; }
-            public float Tamer { get; }
-            public float Unlock { get; }
+            public string CreatureName { get; }
+            public float MasterLevel { get; }
+            public float TamerLevel { get; }
+            public float UnlockLevel { get; }
             public float TameTime { get; }
 
-            public TamingLevels(string creature, float master, float tamer, float unlock, float tametime)
+            public TamingLevels(string creatureName, float masterLevel, float tamerLevel, float unlockLevel, float tametime)
             {
-                Creature = creature;
-                Master = master;
-                Tamer = tamer;
-                Unlock = unlock;
+                CreatureName = creatureName;
+                MasterLevel = masterLevel;
+                TamerLevel = tamerLevel;
+                UnlockLevel = unlockLevel;
                 TameTime = tametime;
             }
         }
+
+        public struct CreatureTameLevels
+        {
+            public string CreatureName { get; }
+            
+            // minimum skill level required to tamke the creature
+            public float UnlockLevel { get; }
+
+            // skill level at which the tamer becomes good at taming the creature
+            public float TamerLevel { get; }
+
+            // skill level at which the tamer is a master at taming the creature
+            public float MasterLevel { get; }
+
+            public CreatureTameLevels(string creatureNamel, float unlockLevel, float tamerLevel, float masterLevel)
+            {
+                CreatureName = creatureNamel;
+                UnlockLevel = unlockLevel;
+                TamerLevel = tamerLevel;
+                MasterLevel = masterLevel;
+            }
+        }
+
         public struct TamingFix
         {
             public string CreatureZDOID { get; }

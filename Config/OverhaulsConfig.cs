@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace MoreSkills.Config
 {
-    [BepInPlugin(Plugin_Name, "MoreSkills: Overhauls", "0.0.9")]
+    [BepInPlugin(Plugin_Name, "MoreSkills: Overhauls", "0.0.10")]
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class MoreSkills_OverhaulsConfig : BaseUnityPlugin
     {
@@ -82,7 +82,7 @@ namespace MoreSkills.Config
             // types of drops recognized when cutting wood using the WoodCutting skill with an axe
             // BeechSeeds,BirchCone,OakSeeds,Acorn,ElderBark,FineWood,FirCone,PineCone,Resin,RoundLog,Wood
             WoodCuttingApplyForItems = base.Config.Bind<String>("3. Baseconfigs: Woodcutting", "WoodCuttingApplyForItems",
-                "BeechSeeds,BirchCone,OakSeeds,Acorn,ElderBark,FineWood,FirCone,PineCone,Resin,RoundLog,Wood",
+                "BeechSeeds,BirchCone,OakSeeds,Acorn,ElderBark,FineWood,FirCone,PineCone,Resin,RoundLog,Wood,YggdrasilWood,Softtissue",
                 "List of items that might drop when applying the skill 'WoodCutting' to apply the skill on and increase drop rates to based on skill level. If an item is not in the list the skill will not be applied. 'Enable WoodCutting Drop Mod' must be true for this to be applied.");
 
             // types of drops recognized when mining ore, stone or other items using the Pickaxes skill with a pickaxe

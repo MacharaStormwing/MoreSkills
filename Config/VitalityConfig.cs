@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace MoreSkills.Config
 {
-    [BepInPlugin(Plugin_Name, "MoreSkills: Vitality", "0.0.3")]
+    [BepInPlugin(Plugin_Name, "MoreSkills: Vitality", "0.0.4")]
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class MoreSkills_VitalityConfig : BaseUnityPlugin
     {
@@ -24,7 +24,7 @@ namespace MoreSkills.Config
             EnableHealthMod = base.Config.Bind<bool>("Enablers", "Enable Vitality Mod", true, "Enables or disables the Vitality Modification.");
             //Multipliers
             //Vitality
-            VitalitySkillIncreaseMultiplier = base.Config.Bind<float>("Multipliers", "Multiply the Vitality Skill Increase per Damage", 1.0f, "The Skill Increase is based in the Damaged recieved 1/10, so if you recieve 100 damage you increase the skill by This allows you to multiply this number.");
+            VitalitySkillIncreaseMultiplier = base.Config.Bind<float>("Multipliers", "Multiply the Vitality Skill Increase per Damage", 1.5f, "The Skill Increase is based in the Damaged recieved 1/10, so if you recieve 100 damage you increase the skill by This allows you to multiply this number.");
             //Base Configs
             //Vitality
             BaseHealth = base.Config.Bind<float>("BaseConfigs", "Base Health", 25f, "Change the base Health. (Valheim Default is 25)");

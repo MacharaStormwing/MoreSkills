@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Runtime.CompilerServices;
 using HarmonyLib;
 using MoreSkills.Config;
 using MoreSkills.Utility;
@@ -10,7 +8,7 @@ namespace MoreSkills.ModSkills
 {
     class MoreSkills_Crafting
     {
-        [HarmonyPatch(typeof(InventoryGui), "Show")]
+        [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.Show))]
         public static class CraftingSkill_InventoryShow
         {
             public static void Postfix()
@@ -106,7 +104,7 @@ namespace MoreSkills.ModSkills
         }
                         
 
-        [HarmonyPatch(typeof(InventoryGui), "DoCrafting")]
+        [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.DoCrafting))]
         public static class CraftingSkillMod_SkillIncrease
         {
             public static void Postfix()

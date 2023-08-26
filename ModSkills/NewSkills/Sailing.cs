@@ -7,6 +7,7 @@ namespace MoreSkills.ModSkills
 {
     class MoreSkills_Sailing
     {
+        // TODO: veriy if change from UpdateShipControl to GetSailForce works
         //[HarmonyPatch(typeof(Player), "UpdateShipControl")]
         [HarmonyPatch(typeof(Ship), nameof(Ship.GetSailForce))]
         public static class Sailing_Skill

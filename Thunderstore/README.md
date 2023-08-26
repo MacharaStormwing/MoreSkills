@@ -1,6 +1,15 @@
 New Changes by MacharaStormwing:
 --------------------------------
 
+Update 0.2.5 (August 26 2023):
+- updated to support Valheim 0.217.14 "Hildir's Request"
+- added optional improved logging for Taming skill (set "Enable Detailed Taming Logging = true" in MoreSkills.TamingConfig.cfg if you need it)
+- refactoring of taming skill to track down issues (in progress, taming is still not properly working)
+- added missing YggdrasilWood and Softtissue to config WoodCuttingApplyForItems configurable in MoreSkills.OverhaulsConfig.cfg (so skill is applied to them)
+- Included fitness skill of pipakin found at https://github.com/pipakin/PipakinsMods since it was not updated (but I adapted and updated it)
+  you can disable it by setting FitnessSkillEnabled=false in com.pipakin.FitnessSkillMod.cfg
+- updated default values to something I find more reasonable and/or balanced
+
 Update 0.2.4 (June 22 2023):
 - small fix always logging a warning concerning IgnoreDropItemNames even when it should not be
 

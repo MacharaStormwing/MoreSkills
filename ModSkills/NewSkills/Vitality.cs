@@ -1,13 +1,14 @@
 ﻿using HarmonyLib;
 using MoreSkills.Config;
 using MoreSkills.Utility;
+using System.Reflection;
 using UnityEngine;
 
 namespace MoreSkills.ModSkills
 {
     class MoreSkills_Vitality
     {
-        [HarmonyPatch(typeof(Player), "SetMaxHealth")]
+        [HarmonyPatch(typeof(Player), nameof(Player.SetMaxHealth))]
         public static class Vitality_ApplyBaseHealthMod
         {
             public static void Prefix(ref float health)
@@ -24,9 +25,14 @@ namespace MoreSkills.ModSkills
             }
         }
 
-        [HarmonyPatch(typeof(Player), "UpdateStats")]
+        [HarmonyPatch]
         public static class Vitality_HealthRegen
         {
+            public static MethodBase TargetMethod()
+            {
+                return AccessTools.DeclaredMethod(typeof(Player), nameof(Player.UpdateStats), new System.Type[0]);
+            }
+
             public static void Postfix()
             {
                 if (MoreSkills_Instances._player != null)
@@ -61,7 +67,7 @@ namespace MoreSkills.ModSkills
             }
         }
 
-        [HarmonyPatch(typeof(Player), "OnDamaged")]
+        [HarmonyPatch(typeof(Player), nameof(Player.OnDamaged))]
         public static class Vitality_RaiseSkill
         {
             public static void Postfix(ref HitData hit)

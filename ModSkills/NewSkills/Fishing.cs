@@ -8,7 +8,7 @@ namespace MoreSkills.ModSkills.NewSkills
 {
     class MoreSkills_Fishing
     {
-        [HarmonyPatch(typeof(FishingFloat), "Nibble")]
+        [HarmonyPatch(typeof(FishingFloat), nameof(FishingFloat.Nibble))]
         public static class FishFloat_Nibble_Patch
         {
             public static void Postfix(ref FishingFloat __instance)
@@ -58,7 +58,7 @@ namespace MoreSkills.ModSkills.NewSkills
             public static float mathAutoHook;
         }
 
-        [HarmonyPatch(typeof(Fish), "CustomFixedUpdate")]
+        [HarmonyPatch(typeof(Fish), nameof(Fish.CustomFixedUpdate))]
         public static class Fish_SpeedNHeight_Patch
         {
             public static bool Prefix(ref float ___m_speed, ref float ___m_height, ref Fish __instance)
@@ -87,7 +87,7 @@ namespace MoreSkills.ModSkills.NewSkills
             }
         }
 
-        [HarmonyPatch(typeof(Fish), "CustomFixedUpdate")]
+        [HarmonyPatch(typeof(Fish), nameof(Fish.CustomFixedUpdate))]
         public static class Fish_VarietyNMods_Patch
         {
             public static void Postfix(ref Fish __instance, ref float ___m_speed, ref float ___m_height)
@@ -161,7 +161,7 @@ namespace MoreSkills.ModSkills.NewSkills
             }
         }
 
-        [HarmonyPatch(typeof(FishingFloat), "FixedUpdate")]
+        [HarmonyPatch(typeof(FishingFloat), nameof(FishingFloat.FixedUpdate))]
         public class FishingSkill_RaiseSkill
         {
             public static void Postfix(ref FishingFloat __instance)

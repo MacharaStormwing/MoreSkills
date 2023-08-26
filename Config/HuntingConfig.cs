@@ -8,7 +8,7 @@ using System;
 
 namespace MoreSkills.Config
 {
-    [BepInPlugin(Plugin_Name, "MoreSkills: Hunting", "0.0.4")]
+    [BepInPlugin(Plugin_Name, "MoreSkills: Hunting", "0.0.5")]
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class MoreSkills_HuntingConfig : BaseUnityPlugin
     {
@@ -36,9 +36,9 @@ namespace MoreSkills.Config
             EnableTrialsOfOdinCompatibility = base.Config.Bind<bool>("1. Enablers", "Enable Compatibility with Trials of Odin Mod", false, "Enables or disables the Compatibility with Trials of Odin's Levels Mod");
             //Hunting
             //Skill
-            HuntingSkillMultiplier = base.Config.Bind<float>("2. Multipliers", "Multiplies the Hunting Skill Increase", 1.0f, "The Skill Increase is based on the max Health of the Mob 1/20, so if the mob is killed and had a max health of 500 you get 50 (If you level up, it will only level you up and loose the rest of exp, to yet be fixed). This allows you to multiply this number.");
+            HuntingSkillMultiplier = base.Config.Bind<float>("2. Multipliers", "Multiplies the Hunting Skill Increase", 0.5f, "The Skill Increase is based on the max Health of the Mob 1/20, so if the mob is killed and had a max health of 500 you get 50 (If you level up, it will only level you up and loose the rest of exp, to yet be fixed). This allows you to multiply this number.");
             //Drops
-            HuntingDropMultiplier = base.Config.Bind<float>("2. Multipliers", "Multiplies the Hunting Drops", 1.5f, "The based on level 2. Multipliers, so at level 100 you reach such number. At level 100 you recieve x1.5 at default to the amount of Drops from a Mob/Boss. This multiplier changes that number");
+            HuntingDropMultiplier = base.Config.Bind<float>("2. Multipliers", "Multiplies the Hunting Drops", 1.2f, "The based on level 2. Multipliers, so at level 100 you reach such number. At level 100 you recieve x1.5 at default to the amount of Drops from a Mob/Boss. This multiplier changes that number");
             //BaseConfigs
             //ToO
             ToOLowLevelStart = base.Config.Bind<int>("3. BaseConfig", "Set Low Level Start Set at Trials of Odin", 1, "You have to put the number at which you set the low level at Trials of Odin Mod");

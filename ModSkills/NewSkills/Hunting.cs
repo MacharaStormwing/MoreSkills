@@ -9,7 +9,7 @@ namespace MoreSkills.ModSkills.NewSkills
 {
     class MoreSkills_Hunting
     {
-        [HarmonyPatch(typeof(CharacterDrop), "Start")]
+        [HarmonyPatch(typeof(CharacterDrop), nameof(CharacterDrop.Start))]
         public static class Hunting_UpdateDrops
         {
             public static void Postfix(ref CharacterDrop __instance)
@@ -100,7 +100,7 @@ namespace MoreSkills.ModSkills.NewSkills
             }
         }
 
-        [HarmonyPatch(typeof(CharacterDrop), "OnDeath")]
+        [HarmonyPatch(typeof(CharacterDrop), nameof(CharacterDrop.OnDeath))]
         public static class Hunting_RaiseSkill
         {
             public static void Postfix(ref CharacterDrop __instance)

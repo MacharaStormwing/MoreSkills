@@ -8,7 +8,7 @@ using System;
 
 namespace MoreSkills.Config
 {
-    [BepInPlugin(Plugin_Name, "MoreSkills: Crafting", "0.0.4")]
+    [BepInPlugin(Plugin_Name, "MoreSkills: Crafting", "0.0.5")]
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class MoreSkills_CraftingConfig : BaseUnityPlugin
     {
@@ -26,11 +26,11 @@ namespace MoreSkills.Config
             //2. Multipliers
             //Crafting
             //Skill
-            CraftingSkillIncreaseMultiplier = base.Config.Bind<float>("2. Multipliers", "Multiply the Crafting Skill Increase", 1.0f, "Multiplies the Crafting Skill Increase that takes into count all the amount of resources used to craft the object");
+            CraftingSkillIncreaseMultiplier = base.Config.Bind<float>("2. Multipliers", "Multiply the Crafting Skill Increase", 1.5f, "Multiplies the Crafting Skill Increase that takes into count all the amount of resources used to craft the object");
             //ResourceChanges
-            CraftingLevelMultiplier = base.Config.Bind<float>("2. Multipliers", "Change the Starting Multiplier in Crafting Mod", 2f, "(If Middle Level is 0, this number will not be counted). This is the Level 0 Multiplier at which objects cost will be multiplied at the begging of the game until reached the level you marked at config to go back to vanilla.");
-            CraftingMiddleLevel = base.Config.Bind<int>("2. Multipliers", "Set the Middle Level of the High Levels Crafting Mod", 50, "This is the level where it will stop Multipling and will start Dividing the cost of objects. Can be set to 100 and never have a divider. Or 0 if you dont want any Multipliers at the start of a game.");
-            CraftingLevelDivider = base.Config.Bind<float>("2. Multipliers", "Change the Ending Multiplier in the Crafting Mod", 2f, "(If Middle Level is 100, this number will not be counted). This is the Level 100 Divider at which objects cost will be divided at the end of the game once you reached the level you marked at config.");
+            CraftingLevelMultiplier = base.Config.Bind<float>("2. Multipliers", "Change the Starting Multiplier in Crafting Mod", 1.2f, "(If Middle Level is 0, this number will not be counted). This is the Level 0 Multiplier at which objects cost will be multiplied at the begging of the game until reached the level you marked at config to go back to vanilla.");
+            CraftingMiddleLevel = base.Config.Bind<int>("2. Multipliers", "Set the Middle Level of the High Levels Crafting Mod", 20, "This is the level where it will stop Multipling and will start Dividing the cost of objects. Can be set to 100 and never have a divider. Or 0 if you dont want any Multipliers at the start of a game.");
+            CraftingLevelDivider = base.Config.Bind<float>("2. Multipliers", "Change the Ending Multiplier in the Crafting Mod", 1.5f, "(If Middle Level is 100, this number will not be counted). This is the Level 100 Divider at which objects cost will be divided at the end of the game once you reached the level you marked at config.");
 
             //Inject.Strength
             if (EnableCraftingSkill.Value)
