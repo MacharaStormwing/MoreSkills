@@ -1,6 +1,10 @@
 New Changes by MacharaStormwing:
 --------------------------------
 
+Update 0.2.6 (Oktober 8 2023):
+- updated dependency to BepInEx 5.4.22.0
+- updated to support Valheim 0.217.24 (no actual code change, just updated the BepInEx dependency)
+
 Update 0.2.5 (August 26 2023):
 - updated to support Valheim 0.217.14 "Hildir's Request"
 - added optional improved logging for Taming skill (set "Enable Detailed Taming Logging = true" in MoreSkills.TamingConfig.cfg if you need it)
