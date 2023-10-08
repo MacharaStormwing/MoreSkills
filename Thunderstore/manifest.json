@@ -4,7 +4,7 @@
     "website_url": "https://github.com/MacharaStormwing/MoreSkills",
     "description": "Adds new skills to the game and Overhauls others. All Configurable and can Disable one by one if wanted. by MacharaStormwing",
     "dependencies": [
-        "denikson-BepInExPack_Valheim-5.4.2105",
+        "denikson-BepInExPack_Valheim-5.4.2200",
         "pipakin-SkillInjector-1.1.1"
     ]
 }
