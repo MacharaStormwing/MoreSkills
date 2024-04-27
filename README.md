@@ -1,6 +1,7 @@
 New Changes by MacharaStormwing:
 --------------------------------
 
+  this should fix chat messages to appear twice.
 Update 0.2.6 (Oktober 8 2023):
 - updated dependency to BepInEx 5.4.22.0
 - updated to support Valheim 0.217.24 (no actual code change, just updated the BepInEx dependency)
