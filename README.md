@@ -1,6 +1,14 @@
 New Changes by MacharaStormwing:
 --------------------------------
 
+Update 0.2.7 (April 27 2024):
+- included dependency gui_framework needed in handling chat (used in taming skill) to $(GamePath)\valheim_Data\Managed\gui_framework.dll
+  this should fix chat messages to appear twice.
+  (not sure if this bug was missed or introduced with latest Valheim versions)
+- changed location of dependencies to be looked up in $(GamePath)\valheim_Data\Managed\ instead of $(GamePath)\unstripped_corlib\
+  since unstripped_corlib should no longer contain anything (or exist) in the latest BepInEx versions
+  (Note: $(gamepath) is looked up dynamically and should be the install directory of Valheim)
+
 Update 0.2.6 (Oktober 8 2023):
 - updated dependency to BepInEx 5.4.22.0
 - updated to support Valheim 0.217.24 (no actual code change, just updated the BepInEx dependency)
