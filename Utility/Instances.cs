@@ -1,28 +1,32 @@
 ﻿using HarmonyLib;
 using System.Reflection;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace MoreSkills.Utility
 {
     public class MoreSkills_Instances
     {
-        public static Vagon _cart;
+
         public static Player _player;
-        public static Inventory _inventory;
-        public static ItemDrop _itemDrop;
         public static ObjectDB _objectDB;
         public static InventoryGui _inventoryGui;
-        public static ZNetView _zNetView;
-        public static MineRock5 _mineRock5;
-        public static Character _CDamage;
         public static ZDOID _CDAttacker;
-        public static Destructible _DDamage;
         public static ZDOID _DDAttacker;
-        public static MineRock5 _MR5Damage;
         public static ZDOID _MR5DAttacker;
-        public static TreeBase _TBDamage;
         public static ZDOID _TBDAttacker;
-        public static TreeLog _TLDamage;
         public static ZDOID _TLDAttacker;
+
+        // currently unused apparently
+        private static Vagon _cart;
+        private static Inventory _inventory;
+        private static ItemDrop _itemDrop;
+        private static ZNetView _zNetView;
+        private static MineRock5 _mineRock5;
+        private static Character _CDamage;
+        private static Destructible _DDamage;
+        private static MineRock5 _MR5Damage;
+        private static TreeBase _TBDamage;
+        private static TreeLog _TLDamage;
 
         [HarmonyPatch(typeof(Vagon), nameof(Vagon.UpdateMass))]
         public static class SI_Vagon
@@ -99,7 +103,12 @@ namespace MoreSkills.Utility
             }
         }
 
-        [HarmonyPatch(typeof(MineRock5), nameof(MineRock5.Start))]
+        /**
+         *  Changed with Version 0.3.0 (Valheim 0.218.15)
+         *  Using MineRock5.Awake instead of MineRock5.Start since the latter does no longer exist
+         * This and other instances do not seem to be used however.
+         */
+        [HarmonyPatch(typeof(MineRock5), nameof(MineRock5.Awake))]
         public static class SI_MineRock5
         {
             public static void Postfix(ref MineRock5 __instance)

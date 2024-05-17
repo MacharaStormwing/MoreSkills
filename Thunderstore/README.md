@@ -1,6 +1,11 @@
 New Changes by MacharaStormwing:
 --------------------------------
 
+Update 0.3.0 (May 17 2024):
+- Updated to be compatible with Valheim 0.218.15. This is the initial update for Ashlands, further updates might be needed.
+- belatedly updated dependency to BepInExPack_Valheim 5.4.2202
+- some internal cleanup (no functional change)
+
 Update 0.2.7 (April 27 2024):
 - included dependency gui_framework needed in handling chat (used in taming skill) to $(GamePath)\valheim_Data\Managed\gui_framework.dll
   this should fix chat messages to appear twice.

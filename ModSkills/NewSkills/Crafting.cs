@@ -54,7 +54,7 @@ namespace MoreSkills.ModSkills
                         }
 
                         bool advancedLogging = MoreSkills_CraftingConfig.EnableDetailedLogging.Value;
-                        float appliedItemMultiplier = calculateAppliedItemMultiplier(advancedLogging, "Show (Crafting)");
+                        float appliedItemMultiplier = CalculateAppliedItemMultiplier(advancedLogging, "Show (Crafting)");
 
                         foreach (Recipe recipe in MoreSkills_Instances._objectDB.m_recipes)
                         {
@@ -114,7 +114,7 @@ namespace MoreSkills.ModSkills
                     if (MoreSkills_CraftingConfig.EnableCraftingSkill.Value)
                     {
                         bool advancedLogging = MoreSkills_CraftingConfig.EnableDetailedLogging.Value;
-                        float appliedItemMultiplier = calculateAppliedItemMultiplier(advancedLogging, "DoCrafting");
+                        float appliedItemMultiplier = CalculateAppliedItemMultiplier(advancedLogging, "DoCrafting");
 
                         // TODO: this is very similar to what is done in Show, maybe generalize
 
@@ -192,9 +192,9 @@ namespace MoreSkills.ModSkills
 
         public static bool Saved;
 
-        public static List<Helper.CraftingSaves> cSaves = new List<Helper.CraftingSaves>();
+        public static List<Helper.CraftingSaves> cSaves = new();
 
-        private static float calculateAppliedItemMultiplier(bool advancedLogging, string caltculatedAt)
+        private static float CalculateAppliedItemMultiplier(bool advancedLogging, string caltculatedAt)
         {
             // calculation of the item multiplication factor based on skill level,
             // apply multiplier factor if below middle level, apply divider factor if above
@@ -210,7 +210,7 @@ namespace MoreSkills.ModSkills
                 middle = 1f;
             }
 
-            float appliedItemMultiplier = 1f;
+            float appliedItemMultiplier;
             if (level < middle)
             {
                 float multiplier = MoreSkills_CraftingConfig.CraftingLevelMultiplier.Value;

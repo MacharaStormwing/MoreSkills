@@ -10,11 +10,11 @@ namespace MoreSkills.ModSkills
     class MoreSkills_DropsRocksWood
     {
         // new cleaner drop method that uses configurable item names that are to be handled: use it if the value is true
-        private static bool useNewDropMethod = true;
+        private static readonly bool useNewDropMethod = true;
 
-        private static char[] commaSeparator = new[] { ',' };
+        private static readonly char[] commaSeparator = new[] { ',' };
 
-        private static float getAppliedWoodLootFactor(float appliedWoodLootFactor)
+        private static float GetAppliedWoodLootFactor(float appliedWoodLootFactor)
         {
             if (appliedWoodLootFactor == 0)
             {
@@ -24,7 +24,7 @@ namespace MoreSkills.ModSkills
             return appliedWoodLootFactor;
         }
 
-        private static float getAppliedStoneLootFactor(float appliedStoneLootFactor)
+        private static float GetAppliedStoneLootFactor(float appliedStoneLootFactor)
         {
             if (appliedStoneLootFactor == 0)
             {
@@ -34,7 +34,7 @@ namespace MoreSkills.ModSkills
             return appliedStoneLootFactor;
         }
 
-        private static float getAppliedHuntingLootFactor(float appliedHuntingLootFactor)
+        private static float GetAppliedHuntingLootFactor(float appliedHuntingLootFactor)
         {
             if (appliedHuntingLootFactor == 0)
             {
@@ -65,7 +65,7 @@ namespace MoreSkills.ModSkills
                             if (advancedLogging)
                                 Utilities.Log("Starting DropsRocksWood.Postfix with " + __result.Count + " drops");
 
-                            List<GameObject> Drops = new List<GameObject>();                            
+                            List<GameObject> Drops = new();                            
 
                             float appliedWoodLootFactor = 0;
                             float appliedStoneLootFactor = 0;
@@ -81,12 +81,12 @@ namespace MoreSkills.ModSkills
                                 string[] huntingDroppedItemNames = MoreSkills_OverhaulsConfig.HuntingApplyForItems.Value.Split(commaSeparator, StringSplitOptions.RemoveEmptyEntries);
                                
                                 string[] IgnoreDropItemNames = MoreSkills_OverhaulsConfig.IgnoreDropItemNames.Value.Split(commaSeparator, StringSplitOptions.RemoveEmptyEntries);
-                                HashSet<string> IgnoreDropItemNamesSet = new HashSet<string>(IgnoreDropItemNames);
+                                HashSet<string> IgnoreDropItemNamesSet = new(IgnoreDropItemNames);
 
                                 string[] DontDropItemNames = MoreSkills_OverhaulsConfig.DontDropItemNames.Value.Split(commaSeparator, StringSplitOptions.RemoveEmptyEntries);
-                                HashSet<string> DontDropItemNamesSet = new HashSet<string>(DontDropItemNames);
+                                HashSet<string> DontDropItemNamesSet = new(DontDropItemNames);
 
-                                Dictionary<string, DropObjectContainer> dropObjects = new Dictionary<string, DropObjectContainer>();
+                                Dictionary<string, DropObjectContainer> dropObjects = new();
                                 foreach (string itemName in woodcuttingDroppedItemNames) {
                                     if (!dropObjects.ContainsKey(itemName))
                                         dropObjects.Add(itemName, new DropObjectContainer(0, DropObjectAssocinatedSkillType.Woodworking, null));
@@ -154,14 +154,13 @@ namespace MoreSkills.ModSkills
                                     }
                                 }
 
-                                appliedWoodLootFactor = getAppliedWoodLootFactor(appliedWoodLootFactor);
-                                appliedStoneLootFactor = getAppliedStoneLootFactor(appliedStoneLootFactor);
-                                appliedHuntingLootFactor = getAppliedHuntingLootFactor(appliedHuntingLootFactor);
+                                appliedWoodLootFactor = GetAppliedWoodLootFactor(appliedWoodLootFactor);
+                                appliedStoneLootFactor = GetAppliedStoneLootFactor(appliedStoneLootFactor);
+                                appliedHuntingLootFactor = GetAppliedHuntingLootFactor(appliedHuntingLootFactor);
 
                                 foreach (String itemName in dropObjects.Keys)
                                 {
-                                    DropObjectContainer dropContainer;
-                                    if (dropObjects.TryGetValue(itemName, out dropContainer) &&
+                                    if (dropObjects.TryGetValue(itemName, out DropObjectContainer dropContainer) &&
                                         dropContainer.NumItems > 0 && dropContainer.DropItem != null)
                                     {
                                         // for each item check what type of skill it associates to,
@@ -417,7 +416,7 @@ namespace MoreSkills.ModSkills
                                 //Wood
                                 if (MoreSkills_OverhaulsConfig.EnableWoodCuttingDropMod.Value)
                                 {
-                                    appliedWoodLootFactor = getAppliedWoodLootFactor(appliedWoodLootFactor);
+                                    appliedWoodLootFactor = GetAppliedWoodLootFactor(appliedWoodLootFactor);
 
                                     for (int i = 0; i < (int)(cBeechSeed + (cBeechSeed * appliedWoodLootFactor)); i++)
                                     {
@@ -515,7 +514,7 @@ namespace MoreSkills.ModSkills
                                 //Minerals
                                 if (MoreSkills_OverhaulsConfig.EnablePickaxeDropMod.Value)
                                 {
-                                    appliedStoneLootFactor = getAppliedStoneLootFactor(appliedStoneLootFactor);
+                                    appliedStoneLootFactor = GetAppliedStoneLootFactor(appliedStoneLootFactor);
 
                                     for (int i = 0; i < (int)(cChitin + (cChitin * appliedStoneLootFactor)); i++)
                                     {
@@ -581,7 +580,7 @@ namespace MoreSkills.ModSkills
                                 //Others
                                 if (MoreSkills_HuntingConfig.EnableHuntingSkill.Value)
                                 {
-                                    appliedStoneLootFactor = getAppliedHuntingLootFactor(appliedWoodLootFactor);
+                                    appliedStoneLootFactor = GetAppliedHuntingLootFactor(appliedWoodLootFactor);
 
                                     for (int i = 0; i < (int)(cFeathers + (cFeathers * appliedHuntingLootFactor)); i++)
                                     {
