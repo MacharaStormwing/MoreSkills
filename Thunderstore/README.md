@@ -1,6 +1,10 @@
 New Changes by MacharaStormwing:
 --------------------------------
 
+Update 0.3.1 (June 9 2024):
+- Fix for "Set the Middle Level of the High Levels Crafting Mod" (default 20) in MoreSkills.CraftingConfig.cfg to be used correctly.
+  It is used by dividing by 100 to have a float value between 0.0 and 1.0, which way an integer instead of a float dividion always resulting in 0.0
+
 Update 0.3.0 (May 17 2024):
 - Updated to be compatible with Valheim 0.218.15. This is the initial update for Ashlands, further updates might be needed.
 - belatedly updated dependency to BepInExPack_Valheim 5.4.2202

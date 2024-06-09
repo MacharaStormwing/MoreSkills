@@ -198,10 +198,10 @@ namespace MoreSkills.ModSkills
         {
             // calculation of the item multiplication factor based on skill level,
             // apply multiplier factor if below middle level, apply divider factor if above
-            float level = MoreSkills_Instances._player.GetSkillFactor((Skills.SkillType)MoreSkills_CraftingConfig.CraftingSkill_Type);
+            float skillLevel = MoreSkills_Instances._player.GetSkillFactor((Skills.SkillType)MoreSkills_CraftingConfig.CraftingSkill_Type);
             // convert from values between 0 and 100 to 0 and 1
             // values below 0 are handled as 0, values above 100 are handled as 100
-            float middle = MoreSkills_CraftingConfig.CraftingMiddleLevel.Value / 100;
+            float middle = (float) MoreSkills_CraftingConfig.CraftingMiddleLevel.Value / 100;
             if (middle < 0f)
             {
                 middle = 0f;
@@ -211,28 +211,34 @@ namespace MoreSkills.ModSkills
             }
 
             float appliedItemMultiplier;
-            if (level < middle)
+            if (skillLevel < middle)
             {
                 float multiplier = MoreSkills_CraftingConfig.CraftingLevelMultiplier.Value;
 
-                appliedItemMultiplier = multiplier - ((level * (1f / middle)) * (multiplier - 1f));
+                appliedItemMultiplier = multiplier - ((skillLevel * (1f / middle)) * (multiplier - 1f));
 
                 if (advancedLogging)
+                    Utilities.Log(caltculatedAt + ": formula: appliedItemMultiplier = CraftingLevelMultiplier - ((SkillLevel * (1 / CraftingMiddleLevel)) * (CraftingLevelMultiplier - 1)) where configured middle (0-100) was divided by 100 to get 0.0-1.0");
+                    Utilities.Log(caltculatedAt + ": formula with values: " + appliedItemMultiplier + " = " + multiplier + " - ((" + skillLevel + " * (1 / " + middle + ")) * (" + multiplier + " - 1))");
                     Utilities.Log(caltculatedAt + ": calculated appliedItemMultiplier "
-                        + appliedItemMultiplier + " based on crafing skill level " + level
-                        + " and multiplier " + multiplier + " because skill is below " + middle);
+                        + appliedItemMultiplier + " using crafing skill level " + skillLevel
+                        + " and multiplier " + multiplier + " ) because skill is below " + middle);
             }
             else
             {
                 float divider = MoreSkills_CraftingConfig.CraftingLevelDivider.Value;
 
-                float appliedItemDivider = 1f + ((level - middle) * (1f / (1f - middle)) * (divider - 1f));
+                float appliedItemDivider = 1f + ((skillLevel - middle) * (1f / (1f - middle)) * (divider - 1f));
                 appliedItemMultiplier = 1f / appliedItemDivider;
 
                 if (advancedLogging)
+                    Utilities.Log(caltculatedAt + ": formula: appliedItemDivider = 1 + ((SkillLevel - CraftingMiddleLevel) * (1 / (1 - CraftingMiddleLevel)) * (CraftingLevelDivider - 1)) where configured middle (0-100) was divided by 100 to get 0.0-1.0");
+                    Utilities.Log(caltculatedAt + ": formula with values: " + appliedItemDivider + " = 1 + ((" + skillLevel + " - " + middle + ") * (1 / (1 - " + middle + ")) * (" + divider + " - 1))");
+
                     Utilities.Log(caltculatedAt + ": calculated appliedItemMultiplier "
-                    + appliedItemMultiplier + " based on crafing skill level " + level
-                    + " and divider " + divider + " because skill is aboveequal " + middle);
+                        + appliedItemMultiplier + " (based on '1 / appliedItemDivider': " + appliedItemDivider + ")"
+                        + " using crafing skill level " + skillLevel
+                        + " and divider " + divider + " because skill is aboveequal " + middle);
             }
 
             return appliedItemMultiplier;

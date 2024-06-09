@@ -6,6 +6,6 @@
 
         public const string Guid = "com.macharastormwing.moreskills";
 
-        public const string Version = "0.3.0";
+        public const string Version = "0.3.1";
     }
 }

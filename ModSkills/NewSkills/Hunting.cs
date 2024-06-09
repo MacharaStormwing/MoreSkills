@@ -128,6 +128,6 @@ namespace MoreSkills.ModSkills.NewSkills
         }
 
         public static int CLevel;
-        public static List<Helper.HuntingDrops> hDrops = new List<Helper.HuntingDrops>();
+        public static List<Helper.HuntingDrops> hDrops = new();
     }
 }
