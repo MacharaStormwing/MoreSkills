@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using HarmonyLib;
 using MoreSkills.Config;
 using MoreSkills.Utility;
@@ -159,13 +160,15 @@ namespace MoreSkills.ModSkills
                             }
                         }
 
+                        int foundMatches = 0;
                         foreach (Recipe recipe in MoreSkills_Instances._objectDB.m_recipes)
                         {
                             if (recipe == null || recipe.m_item == null)
                                 continue;
 
-                            if (recipe.m_item == MoreSkills_Instances._inventoryGui.m_selectedRecipe.Key.m_item)
-                            {
+                            //if (recipe.m_item == MoreSkills_Instances._inventoryGui.m_selectedRecipe.Key.m_item)
+                            if (recipe.m_item == MoreSkills_Instances._inventoryGui.m_selectedRecipe.Recipe.m_item)
+                                {
 
                                 foreach (Piece.Requirement req in recipe.m_resources)
                                 {
@@ -174,12 +177,14 @@ namespace MoreSkills.ModSkills
 
                                     CraftSkillInc += req.m_amount;
                                     CraftSkillInc += req.m_amountPerLevel;
+                                    foundMatches++;
                                 }
                             }
                         }
 
                         MoreSkills_Instances._player.RaiseSkill((Skills.SkillType)MoreSkills_CraftingConfig.CraftingSkill_Type, ((CraftSkillInc * MoreSkills_CraftingConfig.CraftingSkillIncreaseMultiplier.Value)) / 10);
-                        Utilities.Log("Granted Crafting EXP: " + (CraftSkillInc * MoreSkills_CraftingConfig.CraftingSkillIncreaseMultiplier.Value));
+                        Utilities.Log("Granted Crafting EXP: " + (CraftSkillInc * MoreSkills_CraftingConfig.CraftingSkillIncreaseMultiplier.Value)
+                            + " found Recipe maches: " + foundMatches);
                         CraftSkillInc = 0;
                     }
                 }

@@ -1,6 +1,9 @@
 New Changes by MacharaStormwing:
 --------------------------------
 
+Update 0.3.2 (November 30 2024)
+- Update for Version 0.219.* The Bog Witch to fix Crafting. This does not yet consolidate the new crafting skill yet.
+
 Update 0.3.1 (June 9 2024):
 - Fix for "Set the Middle Level of the High Levels Crafting Mod" (default 20) in MoreSkills.CraftingConfig.cfg to be used correctly.
   It is used by dividing by 100 to have a float value between 0.0 and 1.0, which way an integer instead of a float dividion always resulting in 0.0
